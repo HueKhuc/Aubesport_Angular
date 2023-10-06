@@ -7,14 +7,18 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent {
   users: User[];
   user$!: Observable<User[]>;
-  constructor(private user: AubeSportService){}
+  constructor(private user: AubeSportService) {}
 
   ngOnInit(): void {
-    this.user$ = this.user.getAllUsers();
+    console.log('before api call');
+    this.user.getAllUsers().subscribe((data: User[]) => {
+      this.users = data;
+    });
+    console.log('after api call');
   }
 }
