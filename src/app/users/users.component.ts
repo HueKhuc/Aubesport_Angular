@@ -3,6 +3,7 @@ import { User } from '../models/User.model';
 import { AubeSportService } from '../services/aubeSport.service';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserList } from '../models/UserList.model';
 
 @Component({
   selector: 'app-users',
@@ -16,8 +17,8 @@ export class UsersComponent {
 
   ngOnInit(): void {
     console.log('before api call');
-    this.user.getAllUsers().subscribe((data: User[]) => {
-      this.users = data;
+    this.user.getAllUsers().subscribe((data: UserList) => {
+      this.users = data.elements;
     });
     console.log('after api call');
   }
