@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserPageComponent } from './user-page/user-page.component';
 
 
 @NgModule({
@@ -14,12 +15,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     UsersComponent,
     LoginPageComponent,
+    UserPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,13 @@
+.modify-text {
+    display: none;
+    color: black; /* Blue color, you can choose your preferred color */
+    transition: color 0.3s, transform 0.3s;
+    font-size: 12px; /* Adjust the font size as needed */
+    
+  }
+  
+  .btn-link:hover .modify-text {
+    display: inline;
+    transform: scale(1.2); 
+    text-decoration: none;
+  }
