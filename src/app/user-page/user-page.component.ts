@@ -48,6 +48,5 @@ export class UserPageComponent {
       console.log('Updated user:', updatedUser);
       this.editingField = '';
     });
-
   }
 }

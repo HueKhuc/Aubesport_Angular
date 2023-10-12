@@ -1,8 +1,8 @@
 .modify-text {
     display: none;
-    color: black; /* Blue color, you can choose your preferred color */
+    color: black;
     transition: color 0.3s, transform 0.3s;
-    font-size: 12px; /* Adjust the font size as needed */
+    font-size: 12px;
     
   }
   
