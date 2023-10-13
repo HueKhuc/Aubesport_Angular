@@ -1,39 +1,58 @@
 <div class="container mt-5">
-    <div class="row">
-      <div class="col">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>UUID</th>
-              <th>Email</th>
-              <th>Pseudo</th>
-              <th>Bio</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Gender</th>
-              <th>Birthday</th>
-              <th>Created At</th>
-              <th>Modified At</th>
-              <th>Deleted At</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users">
-              <td>{{ user.uuid }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.pseudo }}</td>
-              <td>{{ user.bio }}</td>
-              <td>{{ user.firstName }}</td>
-              <td>{{ user.lastName }}</td>
-              <td>{{ user.gender }}</td>
-              <td>{{ user.birthday | date }}</td>
-              <td>{{ user.createdAt | date }}</td>
-              <td>{{ user.modifiedAt | date }}</td>
-              <td>{{ user.deletedAt | date }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered table-striped text-center">
+        <thead>
+          <tr>
+            <th>UUID</th>
+            <th>Email</th>
+            <th>Pseudo</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.uuid }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.pseudo }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.createdAt | date }}</td>
+            <td>
+              <button class="btn btn-info mx-1" (click)="viewUser(user)">Detail</button>
+              <button class="btn btn-warning mx-1" (click)="editUser(user)">Modify</button>
+              <button class="btn btn-danger mx-1" (click)="deleteUser(user)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="userDetailsModalLabel">User Details</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>ID:</strong> {{ selectedUser?.uuid }}</p>
+    <p><strong>Email:</strong> {{ selectedUser?.email }}</p>
+    <p><strong>First name:</strong> {{ selectedUser?.firstName }}</p>
+    <p><strong>Last name:</strong> {{ selectedUser?.lastName }}</p>
+    <p><strong>Pseudo:</strong> {{ selectedUser?.pseudo }}</p>
+    <p><strong>Bio:</strong> {{ selectedUser?.bio }}</p>
+    <p><strong>Gender:</strong> {{ selectedUser?.gender }}</p>
+    <p><strong>Created at:</strong> {{ selectedUser?.createdAt | date }}</p>
+    <p><strong>Modified at:</strong> {{ selectedUser?.modifiedAt | date }}</p>
+    <p><strong>Deleted at:</strong> {{ selectedUser?.deletedAt | date }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
+  </div>
+</ng-template>
