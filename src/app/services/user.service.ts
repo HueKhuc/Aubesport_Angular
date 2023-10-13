@@ -19,15 +19,13 @@ export class UserService {
   constructor(private http: HttpClient) {
     this.jwt = localStorage.getItem('token');
 
-    if (this.jwt === null) {
-      throw new Error("Token not found");
+    if (this.jwt) {
+      this.decoded = jwt_decode<Token>(this.jwt);
+      this.api = `http://localhost:8000/api/users/${this.decoded.id}`;
+      this.headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.jwt}`,
+      });
     }
-
-    this.decoded = jwt_decode<Token>(this.jwt);
-    this.api = `http://localhost:8000/api/users/${this.decoded.id}`;
-    this.headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.jwt}`,
-    });
   }
 
   getUser(): Observable<UserAccount> {

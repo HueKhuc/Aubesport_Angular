@@ -17,7 +17,20 @@ export class UsersComponent {
   user$!: Observable<User[]>;
   selectedUser: User | null = null;
 
+  userFields = ['pseudo', 'bio', 'firstName', 'lastName', 'gender', 'birthday'];
+
+  userFieldNames: { [key: string]: string } = {
+    pseudo: 'Pseudo',
+    bio: 'Bio',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    gender: 'Gender',
+    birthday: 'Birthday'
+  };
+
   @ViewChild('content', { static: false }) content: ElementRef;
+  @ViewChild('deleteConfirmation', { static: false }) deleteConfirmation: ElementRef;
+  @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
 
   constructor(
     private user: AubeSportService,
@@ -40,11 +53,27 @@ export class UsersComponent {
     this.modalService.open(this.content, { centered: true, size: 'lg' });
   }
 
-  editUser(user: User) {
-
+  editUser(user: User| null) {
+    if (user) {
+      this.selectedUser = user;
+    }
   }
 
-  deleteUser(user: User) {
+  confirmDeleteUser(user: User| null) {
+    if (user) {
+      this.selectedUser = user;
+      this.modalService.open(this.deleteConfirmation, { centered: true, size: 'md' });
+    }
+  }
 
+  deleteUser(user: User| null) {
+    if (user) {
+      this.selectedUser = user;
+      this.user.deleteUser(this.selectedUser).subscribe( 
+        () => {
+          this.modalService.dismissAll('Delete');
+          this.modalService.open(this.deleteInfo, { centered: true, size: 'md' });
+      })
+    }
   }
 }
