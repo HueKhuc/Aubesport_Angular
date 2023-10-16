@@ -1,47 +1,60 @@
 <div *ngIf="user">
-  <div class="container m-5">
-    <div class="row">
-      <div class="col-md-8">
-        <h2>User Profile</h2>
-        <form>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <dl class="row">
-                <dt class="col-sm-3">Email:</dt>
-                <dd class="col-sm-9">{{ user.email }}</dd>
-              </dl>
-            </div>
-          </div>
-
-          <div class="col-md-6" *ngFor="let field of userFields">
-            <div class="form-group row">
-              <label for="field" class="col-sm-3 col-form-label">{{ userFieldNames[field] }}</label>
-              <div *ngIf="editingField !== field; else fieldEdit" class="col-sm-9 row d-flex align-items-center">
-                <div class="col-sm-9">
-                  {{ user[field] }}
-                </div>
-                <button type="button" class="btn btn-link col-sm-3" (click)="startEditing(field)">
-                  <i class="fas fa-pencil"></i><span class="modify-text">Modify</span>
-                </button>
+  <div class="container mt-3">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div *ngIf="message"
+          [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
+          {{ message }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Edit Profile</div>
+          <div class="card-body">
+            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+              <div class="form-group mb-3">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email" class="form-control">
               </div>
-              <ng-template #fieldEdit>
-                <input type="text" [ngModel]="user[field]" (ngModelChange)="user[field] = $event" name="field"
-                  class="form-control">
-              </ng-template>
-            </div>
+              <div class="form-group mb-3">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" id="pseudo" formControlName="pseudo" class="form-control">
+              </div>
+              <div class="form-group mb-3">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" formControlName="firstName" class="form-control">
+              </div>
+              <div class="form-group mb-3">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" formControlName="lastName" class="form-control">
+              </div>
+              <div class="form-group mb-3">
+                <label for="bio">Bio</label>
+                <input type="text" id="bio" formControlName="bio" class="form-control">
+              </div>
+              <div class="form-group mb-3">
+                <label for="gender">Gender</label>
+                <select id="gender" formControlName="gender" class="form-control">
+                  <option value="homme">Male</option>
+                  <option value="femme">Female</option>
+                  <option value="autre">Other</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" formControlName="birthday" class="form-control">
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary"
+                  [disabled]="submitted || profileForm.pristine">Save</button>
+              </div>
+            </form>
           </div>
-
-          <div class="text-right">
-            <button type="button" class="btn btn-success m-3" (click)="saveChanges()" [hidden]="editingField === ''">
-              Save Changes
-            </button>
-            <button type="button" class="btn btn-secondary m-3" (click)="cancelEditing()"
-              [hidden]="editingField === ''">
-              Cancel
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
