@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '../models/Token.model';
 import jwt_decode from "jwt-decode";
-import { UserAccount } from '../models/UserAccount.model';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,13 +28,13 @@ export class UserService {
     }
   }
 
-  getUser(): Observable<UserAccount> {
+  getUser(): Observable<User> {
 
-    return this.http.get<UserAccount>(this.api, { headers: this.headers });
+    return this.http.get<User>(this.api, { headers: this.headers });
   }
 
-  updateUser(updatedUser: UserAccount): Observable<UserAccount> {
+  updateUser(updatedUser: User): Observable<User> {
 
-    return this.http.patch<UserAccount>(this.api, updatedUser, { headers: this.headers });
+    return this.http.patch<User>(this.api, updatedUser, { headers: this.headers });
   }
 }
