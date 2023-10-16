@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginResponse } from 'src/app/models/LoginResponse.model';
 
 @Component({
   selector: 'app-login-page',
@@ -11,36 +10,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.css']
 })
 
-@Injectable({
-  providedIn: 'root'
-})
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
+  private apiUri = 'http://localhost:8000/api/login_check';
+  submitted = false;
+
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
-
-  apiUri = 'http://localhost:8000/api/login_check';
-
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
-
+  ) { }
+  
   ngOnInit(): void {
     if (localStorage.getItem('token') !== null) {
       this.router.navigate(['/'])
     }
   }
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
 
-  login(){
-    this.http.post<any>(
+
+  login() {
+    if (this.submitted) {
+      return;
+    }
+
+    this.submitted = true;
+
+    this.http.post<LoginResponse>(
       this.apiUri,
       {
         "username": this.loginForm.value.email,
         "password": this.loginForm.value.password
       }
     ).subscribe(response => {
+      this.submitted = false;
       localStorage.setItem('token', response.token);
       this.router.navigate(['/'])
     });
