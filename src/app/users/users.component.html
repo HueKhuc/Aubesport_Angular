@@ -24,7 +24,7 @@
             <td>
               <button class="btn btn-info mx-1" (click)="viewUser(user)">Details</button>
               <button class="btn btn-warning mx-1" (click)="editUser(user)">Modify</button>
-              <button class="btn btn-danger mx-1" (click)="confirmDeleteUser(user)">Delete</button>
+              <button *ngIf = "user.deletedAt === null" class="btn btn-danger mx-1" (click)="confirmDeleteUser(user)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -55,7 +55,7 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
     <button class="btn btn-warning" (click)="editUser(selectedUser)">Modify</button>
-    <button class="btn btn-danger" (click)="confirmDeleteUser(selectedUser)">Delete</button>
+    <button *ngIf = "(selectedUser) && selectedUser.deletedAt === null" class="btn btn-danger" (click)="confirmDeleteUser(selectedUser)">Delete</button>
   </div>
 </ng-template>
 

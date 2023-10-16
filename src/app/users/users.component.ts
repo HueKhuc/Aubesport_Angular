@@ -12,7 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   users: User[];
   user$!: Observable<User[]>;
   selectedUser: User | null = null;
@@ -53,27 +53,27 @@ export class UsersComponent {
     this.modalService.open(this.content, { centered: true, size: 'lg' });
   }
 
-  editUser(user: User| null) {
+  editUser(user: User | null) {
     if (user) {
       this.selectedUser = user;
     }
   }
 
-  confirmDeleteUser(user: User| null) {
+  confirmDeleteUser(user: User | null) {
     if (user) {
       this.selectedUser = user;
       this.modalService.open(this.deleteConfirmation, { centered: true, size: 'md' });
     }
   }
 
-  deleteUser(user: User| null) {
+  deleteUser(user: User | null) {
     if (user) {
       this.selectedUser = user;
-      this.user.deleteUser(this.selectedUser).subscribe( 
+      this.user.deleteUser(this.selectedUser).subscribe(
         () => {
           this.modalService.dismissAll('Delete');
           this.modalService.open(this.deleteInfo, { centered: true, size: 'md' });
-      })
+        })
     }
   }
 }
