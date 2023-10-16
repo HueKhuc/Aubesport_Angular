@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { LoginResponse } from 'src/app/models/LoginResponse.model';
 
 @Component({
   selector: 'app-login-page',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class LoginPageComponent implements OnInit {
   private apiUri = 'http://localhost:8000/api/login_check';
+  submitted = false;
 
   constructor(
     private http: HttpClient,
@@ -30,13 +32,20 @@ export class LoginPageComponent implements OnInit {
 
 
   login() {
-    this.http.post<any>(
+    if (this.submitted) {
+      return;
+    }
+
+    this.submitted = true;
+
+    this.http.post<LoginResponse>(
       this.apiUri,
       {
         "username": this.loginForm.value.email,
         "password": this.loginForm.value.password
       }
     ).subscribe(response => {
+      this.submitted = false;
       localStorage.setItem('token', response.token);
       this.router.navigate(['/'])
     });

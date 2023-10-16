@@ -57,6 +57,7 @@ export class UserPageComponent implements OnInit {
     if (this.submitted) {
       return;
     }
+    
     const updatedUser: User = {
       ...this.user,
       pseudo: this.profileForm.get('pseudo')?.value ?? false,
