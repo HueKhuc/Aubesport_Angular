@@ -24,11 +24,11 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['/'])
     }
   }
+
   loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
-
 
   login() {
     if (this.submitted) {

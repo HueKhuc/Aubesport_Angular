@@ -8,7 +8,7 @@ import { UserList } from '../models/UserList.model';
   providedIn: 'root',
 })
 
-export class AubeSportService {
+export class UserService {
   private jwt: string | null; // Déplacez la récupération du JWT dans le constructeur
   private headers: HttpHeaders;
   private api: string;

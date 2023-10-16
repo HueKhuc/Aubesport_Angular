@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { User } from '../models/User.model';
-import { AubeSportService } from '../services/aubeSport.service';
+import { UserService } from '../services/user.service';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserList } from '../models/UserList.model';
@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
 
   constructor(
-    private user: AubeSportService,
+    private user: UserService,
     private authGuard: AuthGuardService,
     private modalService: NgbModal
   ) { }
