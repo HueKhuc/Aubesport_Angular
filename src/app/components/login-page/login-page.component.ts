@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,21 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.css']
 })
 
-@Injectable({
-  providedIn: 'root'
-})
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
+  private apiUri = 'http://localhost:8000/api/login_check';
+
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
-
-  apiUri = 'http://localhost:8000/api/login_check';
-
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('token') !== null) {
@@ -33,7 +23,13 @@ export class LoginPageComponent {
     }
   }
 
-  login(){
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+
+  login() {
     this.http.post<any>(
       this.apiUri,
       {
