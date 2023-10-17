@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../models/User.model';
@@ -19,9 +18,8 @@ export class UserPageComponent implements OnInit {
   isError: boolean;
 
   constructor(
-    private http: HttpClient,
     private userService: UserService,
-    private fb: FormBuilder
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +27,7 @@ export class UserPageComponent implements OnInit {
       this.user = response;
     });
 
-    this.profileForm = this.fb.group({
+    this.profileForm = this.formBuilder.group({
       email: [{ value: '', disabled: true }],
       pseudo: [''],
       bio: [''],
@@ -57,6 +55,7 @@ export class UserPageComponent implements OnInit {
     if (this.submitted) {
       return;
     }
+    
     const updatedUser: User = {
       ...this.user,
       pseudo: this.profileForm.get('pseudo')?.value ?? false,
@@ -71,8 +70,7 @@ export class UserPageComponent implements OnInit {
     this.message = null;
 
     this.userService.updateUser(updatedUser).subscribe(
-      (response) => {
-        console.log('Updated user:', response);
+      () => {
         this.submitted = false;
         this.message = 'Profile updated successfully.';
         this.isError = false;

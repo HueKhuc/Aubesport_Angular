@@ -37,7 +37,7 @@ export class UserService {
     return this.http.get<UserList>(this.api, { headers: this.headers });
   }
 
-  updateUser(updatedUser: User): Observable<User> {
+  updateUserByAdmin(updatedUser: User): Observable<User> {
     return this.http.patch<User>(this.api + updatedUser.uuid, { headers: this.headers });
   }
 
@@ -50,7 +50,7 @@ export class UserService {
     return this.http.get<User>(this.apiUser, { headers: this.headers });
   }
 
-  updateUserByHimself(updatedUser: User): Observable<User> {
+  updateUser(updatedUser: User): Observable<User> {
 
     return this.http.patch<User>(this.apiUser, updatedUser, { headers: this.headers });
   }
