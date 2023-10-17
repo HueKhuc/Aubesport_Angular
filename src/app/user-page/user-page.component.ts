@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../models/User.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-page',
@@ -16,15 +17,22 @@ export class UserPageComponent implements OnInit {
   submitted = false;
   message: string | null = null;
   isError: boolean;
+  private userUuid: string;
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(response => {
-      this.user = response;
+    this.userUuid = this.userService.getUuidFromToken();
+
+    this.route.paramMap.subscribe(params => {
+      const userId = params.get('uuid');
+      if (userId) {
+        this.userUuid = userId;
+      }
     });
 
     this.profileForm = this.formBuilder.group({
@@ -37,16 +45,16 @@ export class UserPageComponent implements OnInit {
       birthday: []
     });
 
-    this.userService.getUser().subscribe((user) => {
-      this.user = user;
+    this.userService.getUserByUuid(this.userUuid).subscribe(response => {
+      this.user = response;
       this.profileForm.patchValue({
-        email: user.email,
-        pseudo: user.pseudo,
-        bio: user.bio,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        gender: user.gender,
-        birthday: user.birthday
+        email: this.user.email,
+        pseudo: this.user.pseudo,
+        bio: this.user.bio,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        gender: this.user.gender,
+        birthday: this.user.birthday
       });
     });
   }
@@ -55,7 +63,7 @@ export class UserPageComponent implements OnInit {
     if (this.submitted) {
       return;
     }
-    
+
     const updatedUser: User = {
       ...this.user,
       pseudo: this.profileForm.get('pseudo')?.value,
@@ -76,6 +84,7 @@ export class UserPageComponent implements OnInit {
         this.isError = false;
       },
       (error) => {
+        console.log(updatedUser);
         this.submitted = false;
         this.message = error.error.detail;
         this.isError = true;

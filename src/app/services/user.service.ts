@@ -15,7 +15,6 @@ export class UserService {
   private headers: HttpHeaders;
   private api: string;
   private decoded: Token;
-  private apiUser: string;
 
   constructor(private http: HttpClient) {
     this.api = 'http://localhost:8000/api/users/';
@@ -29,25 +28,26 @@ export class UserService {
       });
 
       this.decoded = jwt_decode<Token>(this.jwt);
-      this.apiUser = this.api + this.decoded.id;
     }
+  }
+
+  getUuidFromToken() {
+    return this.decoded.id;
   }
 
   getAllUsers(): Observable<UserList> {
     return this.http.get<UserList>(this.api, { headers: this.headers });
   }
 
-  deleteUser(deletedUser: User): Observable<User> {
-    return this.http.delete<User>(this.api + deletedUser.uuid, { headers: this.headers });
+  getUserByUuid(userUuid: string): Observable<User> {
+    return this.http.get<User>(this.api + userUuid, { headers: this.headers });
   }
 
-  getUser(): Observable<User> {
-
-    return this.http.get<User>(this.apiUser, { headers: this.headers });
+  updateUser(user: User): Observable<User> {
+    return this.http.patch<User>(this.api + user.uuid, user, { headers: this.headers });
   }
 
-  updateUser(updatedUser: User): Observable<User> {
-
-    return this.http.patch<User>(this.apiUser, updatedUser, { headers: this.headers });
+  deleteUser(user: User): Observable<User> {
+    return this.http.delete<User>(this.api + user.uuid, { headers: this.headers });
   }
 }

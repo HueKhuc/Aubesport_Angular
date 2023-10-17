@@ -5,13 +5,11 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { UserPageComponent } from './user-page/user-page.component';
 
 const routes: Routes = [
-  {
-    path: '', 
-    component: UsersComponent,
-  },
-  {path:"", redirectTo:"login", pathMatch:"full"},
-  {path:"login", component:LoginPageComponent},
-  {path:"myaccount", component:UserPageComponent},
+  { path: '', component: UsersComponent },
+  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "login", component: LoginPageComponent },
+  { path: "myaccount", component: UserPageComponent },
+  { path: "user/:uuid", component: UserPageComponent },
 ];
 
 @NgModule({
