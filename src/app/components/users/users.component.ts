@@ -1,10 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { User } from '../models/User.model';
-import { UserService } from '../services/user.service';
+import { User } from '../../models/User.model';
+import { UserService } from '../../services/user.service';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserList } from '../models/UserList.model';
-import { AuthGuardService } from '../services/authGuard.service';
+import { UserList } from '../../models/UserList.model';
+import { AuthGuardService } from '../../services/authGuard.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
