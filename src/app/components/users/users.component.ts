@@ -40,7 +40,7 @@ export class UsersComponent implements OnInit {
   onModify(user: User | null) {
     if (user) {
       this.selectedUser = user;
-      this.router.navigate(['edit-user', user.uuid]);
+      this.router.navigate(['user', user.uuid]);
     }
   }
 
