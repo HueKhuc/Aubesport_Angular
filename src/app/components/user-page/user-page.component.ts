@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../models/User.model';
 import { ActivatedRoute } from '@angular/router';
+import { Address } from 'src/app/models/Address.model';
 
 @Component({
   selector: 'app-user-page',
@@ -14,9 +15,12 @@ export class UserPageComponent implements OnInit {
 
   user: User;
   profileForm: FormGroup;
+  address: Address;
+  addressForm: FormGroup;
   submitted = false;
   message: string | null = null;
   isError: boolean;
+  showForm = false;
   private userUuid: string;
 
   constructor(
@@ -44,6 +48,13 @@ export class UserPageComponent implements OnInit {
       gender: [],
       birthday: []
     });
+  
+    this.addressForm = this.formBuilder.group({
+      streetName: [],
+      streetNumber: [],
+      city: [],
+      postalCode: []
+    });
 
     this.userService.getUserByUuid(this.userUuid).subscribe(response => {
       this.user = response;
@@ -55,6 +66,17 @@ export class UserPageComponent implements OnInit {
         lastName: this.user.lastName,
         gender: this.user.gender,
         birthday: this.user.birthday
+      });
+    });
+
+    this.userService.getAddressByUserUuid(this.userUuid).subscribe(response => {
+      this.address = response;
+      
+      this.addressForm.patchValue({
+        streetName: this.address.streetName,
+        streetNumber: this.address.streetNumber,
+        city: this.address.city,
+        postalCode: this.address.postalCode
       });
     });
   }
@@ -84,6 +106,36 @@ export class UserPageComponent implements OnInit {
         this.isError = false;
       },
       (error) => {
+        this.submitted = false;
+        this.message = error.error.detail;
+        this.isError = true;
+      }
+    );
+  }
+
+  onAddressSubmit() {
+    if (this.submitted) {
+      return;
+    }
+
+    const updatedAddress: Address = {
+      ...this.address,
+      streetName: this.addressForm.get('streetName')?.value,
+      streetNumber: this.addressForm.get('streetNumber')?.value,
+      city: this.addressForm.get('city')?.value,
+      postalCode: this.addressForm.get('postalCode')?.value,
+    };
+
+    this.submitted = true;
+    this.message = null;
+
+    this.userService.updateAddress(this.userUuid, updatedAddress).subscribe(
+      () => {
+        this.submitted = false;
+        this.message = 'Profile updated successfully.';
+        this.isError = false;
+      },
+      (error: { error: { detail: string | null; }; }) => {
         this.submitted = false;
         this.message = error.error.detail;
         this.isError = true;
