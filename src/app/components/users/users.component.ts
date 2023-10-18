@@ -43,7 +43,6 @@ export class UsersComponent implements OnInit {
   fetchData() {
     this.userService.getAllUsers(this.currentPage, this.elementsPerPage).subscribe((data: UserList) => {
       this.users = data.elements;
-      this.totalOfPages = data.totalOfPages;
       this.nextPage = data.nextPage;
       this.previousPage = data.previousPage;
     });
