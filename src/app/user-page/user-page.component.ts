@@ -58,12 +58,12 @@ export class UserPageComponent implements OnInit {
     
     const updatedUser: User = {
       ...this.user,
-      pseudo: this.profileForm.get('pseudo')?.value ?? false,
-      bio: this.profileForm.get('bio')?.value ?? false,
-      firstName: this.profileForm.get('firstName')?.value ?? false,
-      lastName: this.profileForm.get('lastName')?.value ?? false,
-      gender: this.profileForm.get('gender')?.value ?? false,
-      birthday: this.profileForm.get('birthday')?.value ?? false,
+      pseudo: this.profileForm.get('pseudo')?.value ?? null,
+      bio: this.profileForm.get('bio')?.value ?? null,
+      firstName: this.profileForm.get('firstName')?.value ?? null,
+      lastName: this.profileForm.get('lastName')?.value ?? null,
+      gender: this.profileForm.get('gender')?.value ?? null,
+      birthday: this.profileForm.get('birthday')?.value ?? null,
     };
 
     this.submitted = true;

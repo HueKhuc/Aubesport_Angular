@@ -37,10 +37,6 @@ export class UserService {
     return this.http.get<UserList>(this.api, { headers: this.headers });
   }
 
-  updateUserByAdmin(updatedUser: User): Observable<User> {
-    return this.http.patch<User>(this.api + updatedUser.uuid, { headers: this.headers });
-  }
-
   deleteUser(deletedUser: User): Observable<User> {
     return this.http.delete<User>(this.api + deletedUser.uuid, { headers: this.headers });
   }
