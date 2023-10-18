@@ -7,7 +7,7 @@ export interface User {
     lastName: string,
     gender: string,
     birthday: Date,
-    creadtedAt: Date,
+    createdAt: Date,
     modifiedAt: Date,
     deletedAt: Date
 }
