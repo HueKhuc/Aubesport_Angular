@@ -1,4 +1,13 @@
-<div class="container mt-5">
+<div class="container row justify-content-end mt-3">
+  <div class="col-md-1 my-1">
+    <select class="form-select" (change)="onElementsPerPageChange($event)">
+      <option value="10" [selected]="elementsPerPage === 10">10</option>
+      <option value="20" [selected]="elementsPerPage === 20">20</option>
+      <option value="50" [selected]="elementsPerPage === 50">50</option>
+    </select>
+  </div>
+</div>
+<div class="container mt-1">
   <div class="row">
     <div class="col">
       <table class="table table-bordered table-striped text-center">
@@ -28,6 +37,19 @@
         </tbody>
       </table>
     </div>
+  </div>
+</div>
+<div class="d-flex flex-row mx-5 justify-content-center">
+  <div>
+    <button class="btn btn-outline-dark mx-1" (click)="onPreviousPage()" [hidden]="currentPage === 1">{{ previousPage
+      }}</button>
+    <button class="btn btn-outline-dark mx-1" disabled>{{ currentPage }}</button>
+    <button class="btn btn-outline-dark mx-1" (click)="onNextPage()" [disabled]="currentPage === totalOfPages"
+      [hidden]="totalOfPages === 1 || currentPage === totalOfPages">{{
+      nextPage
+      }}</button>
+    <button class="btn btn-outline-dark mx-1" [hidden]="nextPage === totalOfPages || currentPage === totalOfPages"> {{
+      totalOfPages }}</button>
   </div>
 </div>
 

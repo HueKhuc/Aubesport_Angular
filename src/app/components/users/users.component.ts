@@ -18,6 +18,11 @@ export class UsersComponent implements OnInit {
   users: User[];
   user$!: Observable<User[]>;
   selectedUser: User | null = null;
+  totalOfPages: number;
+  currentPage = 1;
+  elementsPerPage = 10;
+  nextPage: number | null;
+  previousPage: number | null;
 
   @ViewChild('deleteConfirmation', { static: false }) deleteConfirmation: ElementRef;
   @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
@@ -31,10 +36,37 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authGuard.canActivate()) {
-      this.userService.getAllUsers().subscribe((data: UserList) => {
-        this.users = data.elements;
-      });
+      this.fetchData();
     }
+  }
+
+  fetchData() {
+    this.userService.getAllUsers(this.currentPage, this.elementsPerPage).subscribe((data: UserList) => {
+      this.users = data.elements;
+      this.totalOfPages = data.totalOfPages;
+      this.nextPage = data.nextPage;
+      this.previousPage = data.previousPage;
+    });
+  }
+
+  onPreviousPage() {
+    if (this.previousPage) {
+      this.currentPage = this.previousPage;
+      this.fetchData();
+    }
+  }
+
+  onNextPage() {
+    if (this.nextPage) {
+      this.currentPage = this.nextPage;
+      this.fetchData();
+    }
+  }
+
+  onElementsPerPageChange(event: Event) {
+    const selectedValue = parseInt((event.target as HTMLSelectElement).value, 10);
+    this.elementsPerPage = selectedValue;
+    this.fetchData();
   }
 
   onModify(user: User | null) {
