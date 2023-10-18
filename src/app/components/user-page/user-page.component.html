@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header">Modifier le profil</div>
+          <div class="card-header d-flex justify-content-between">Modifier le profil</div>
           <div class="card-body">
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
               <div class="form-group mb-3">
@@ -49,10 +49,58 @@
                 <input type="date" id="birthday" formControlName="birthday" class="form-control">
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary"
+                <a class="btn btn-outline-primary mx-3" (click)="showForm = !showForm">Modifier l'adresse </a>
+                <button type="submit" class="btn btn-primary mx-3"
                   [disabled]="submitted || profileForm.pristine">Sauvegarder</button>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showForm" id="addressModificationForm">
+  <div *ngIf="address">
+    <div class="container my-3">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div *ngIf="message"
+            [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
+            {{ message }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="address" class="container my-3">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">Modifier l'address</div>
+            <div class="card-body">
+              <form [formGroup]="addressForm" (ngSubmit)="onAddressSubmit()">
+                <div class="form-group mb-3">
+                  <label for="streetName">Rue</label>
+                  <input type="text" id="streetName" formControlName="streetName" class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="streetNumber">Numéro</label>
+                  <input type="text" id="streetNumber" formControlName="streetNumber" class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="city">Ville</label>
+                  <input type="text" id="city" formControlName="city" class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="postalCode">Code postal</label>
+                  <input type="text" id="postalCode" formControlName="postalCode" class="form-control">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary"
+                    [disabled]="submitted || addressForm.pristine">Sauvegarder</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

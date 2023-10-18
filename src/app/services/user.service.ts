@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserList } from '../models/UserList.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '../models/Token.model';
+import { Address } from '../models/Address.model';
 import jwt_decode from "jwt-decode";
 
 @Injectable({
@@ -36,7 +37,11 @@ export class UserService {
   }
 
   getUserByUuid(userUuid: string): Observable<User> {
-    return this.http.get<User>(this.api + userUuid, { headers: this.headers });
+    return this.http.get<User>(`${this.api}/${userUuid}`, { headers: this.headers });
+  }
+
+  getAddressByUserUuid(userUuid: string): Observable<Address> {
+    return this.http.get<Address>(`${this.api}/${userUuid}/addresses`, { headers: this.headers });
   }
 
   getAllUsers(currentPage: number, elementsPerPage: number): Observable<UserList> {
@@ -44,10 +49,14 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<User>(this.api + user.uuid, user, { headers: this.headers });
+    return this.http.patch<User>(`${this.api}/${user.uuid}`, user, { headers: this.headers });
+  }
+
+  updateAddress(userUuid: string, address: Address): Observable<Address> {
+    return this.http.patch<Address>(`${this.api}/${userUuid}/addresses`, address, { headers: this.headers });
   }
 
   deleteUser(user: User): Observable<User> {
-    return this.http.delete<User>(this.api + user.uuid, { headers: this.headers });
+    return this.http.delete<User>(`${this.api}/${user.uuid}`, { headers: this.headers });
   }
 }
