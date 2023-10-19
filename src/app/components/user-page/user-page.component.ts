@@ -20,7 +20,7 @@ export class UserPageComponent implements OnInit {
   submitted = false;
   message: string | null = null;
   isError: boolean;
-  showForm = false;
+  currentForm = 1;
   private userUuid: string;
 
   constructor(
@@ -48,7 +48,7 @@ export class UserPageComponent implements OnInit {
       gender: [],
       birthday: []
     });
-  
+
     this.addressForm = this.formBuilder.group({
       streetName: [],
       streetNumber: [],
@@ -71,7 +71,7 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getAddressByUserUuid(this.userUuid).subscribe(response => {
       this.address = response;
-      
+
       this.addressForm.patchValue({
         streetName: this.address.streetName,
         streetNumber: this.address.streetNumber,
@@ -79,6 +79,10 @@ export class UserPageComponent implements OnInit {
         postalCode: this.address.postalCode
       });
     });
+  }
+
+  showForm(formNumber: number): void {
+    this.currentForm = formNumber;
   }
 
   onSubmit() {
