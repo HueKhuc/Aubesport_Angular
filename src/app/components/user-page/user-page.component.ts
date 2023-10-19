@@ -84,7 +84,6 @@ export class UserPageComponent implements OnInit {
         this.isError = false;
       },
       (error) => {
-        console.log(updatedUser);
         this.submitted = false;
         this.message = error.error.detail;
         this.isError = true;
