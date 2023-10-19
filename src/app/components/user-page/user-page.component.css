@@ -1,13 +1,21 @@
 .modify-text {
-    display: none;
-    color: black;
-    transition: color 0.3s, transform 0.3s;
-    font-size: 12px;
-    
-  }
-  
-  .btn-link:hover .modify-text {
-    display: inline;
-    transform: scale(1.2); 
-    text-decoration: none;
-  }
+  display: none;
+  color: black;
+  transition: color 0.3s, transform 0.3s;
+  font-size: 12px;
+
+}
+
+.btn-link:hover .modify-text {
+  display: inline;
+  transform: scale(1.2);
+  text-decoration: none;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs .nav-link.active {
+  font-weight: bold;
+}
