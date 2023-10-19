@@ -17,7 +17,7 @@ export class UserService {
   private decoded: Token;
 
   constructor(private http: HttpClient) {
-    this.api = 'http://localhost:8000/api/users/';
+    this.api = 'http://localhost:8000/api/users';
 
     // Récupérez le JWT depuis le localStorage dans le constructeur
     this.jwt = localStorage.getItem('token');
@@ -35,12 +35,12 @@ export class UserService {
     return this.decoded.id;
   }
 
-  getAllUsers(): Observable<UserList> {
-    return this.http.get<UserList>(this.api, { headers: this.headers });
-  }
-
   getUserByUuid(userUuid: string): Observable<User> {
     return this.http.get<User>(this.api + userUuid, { headers: this.headers });
+  }
+
+  getAllUsers(currentPage: number, elementsPerPage: number): Observable<UserList> {
+    return this.http.get<UserList>(`${this.api}?currentPage=${currentPage}&elementsPerPage=${elementsPerPage}`, { headers: this.headers });
   }
 
   updateUser(user: User): Observable<User> {
