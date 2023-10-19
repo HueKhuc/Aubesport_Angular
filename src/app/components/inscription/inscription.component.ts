@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/User.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./inscription.component.css']
 })
 
-export class InscriptionComponent {
+export class InscriptionComponent implements OnInit{
   submitted = false;
   inscriptionForm: FormGroup;
   message: string | null = null;
@@ -23,14 +23,14 @@ export class InscriptionComponent {
   ngOnInit(): void {
 
     this.inscriptionForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      pseudo: [''],
-      bio: [''],
-      firstName: [''],
-      lastName: [''],
-      gender: [''],
-      birthday: [{ value: Date }],
+      email: [[], [Validators.required, Validators.email]],
+      password: [[], Validators.required],
+      pseudo: [],
+      bio: [],
+      firstName: [],
+      lastName: [],
+      gender: [],
+      birthday: [],
     });
   }
   onSubmit() {
@@ -40,14 +40,14 @@ export class InscriptionComponent {
 
     const newUser: User =
     {
-      email: this.inscriptionForm.get('email')?.value ?? null,
-      password: this.inscriptionForm.get('password')?.value ?? null,
-      pseudo: this.inscriptionForm.get('pseudo')?.value ?? null,
-      bio: this.inscriptionForm.get('bio')?.value ?? null,
-      firstName: this.inscriptionForm.get('firstName')?.value ?? null,
-      lastName: this.inscriptionForm.get('lastName')?.value ?? null,
-      gender: this.inscriptionForm.get('gender')?.value ?? null,
-      birthday: this.inscriptionForm.get('birthday')?.value ?? null,
+      email: this.inscriptionForm.get('email')?.value,
+      password: this.inscriptionForm.get('password')?.value,
+      pseudo: this.inscriptionForm.get('pseudo')?.value,
+      bio: this.inscriptionForm.get('bio')?.value,
+      firstName: this.inscriptionForm.get('firstName')?.value,
+      lastName: this.inscriptionForm.get('lastName')?.value,
+      gender: this.inscriptionForm.get('gender')?.value,
+      birthday: this.inscriptionForm.get('birthday')?.value,
     };
 
     this.submitted = true;
