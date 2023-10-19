@@ -41,7 +41,7 @@ export class UserService {
   }
 
   getAddressByUserUuid(userUuid: string): Observable<Address> {
-    return this.http.get<Address>(`${this.api}/${userUuid}/addresses`, { headers: this.headers });
+    return this.http.get<Address>(`${this.api}/${userUuid}/address`, { headers: this.headers });
   }
 
   getAllUsers(currentPage: number, elementsPerPage: number): Observable<UserList> {
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   updateAddress(userUuid: string, address: Address): Observable<Address> {
-    return this.http.patch<Address>(`${this.api}/${userUuid}/addresses`, address, { headers: this.headers });
+    return this.http.patch<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.headers });
   }
 
   deleteUser(user: User): Observable<User> {
