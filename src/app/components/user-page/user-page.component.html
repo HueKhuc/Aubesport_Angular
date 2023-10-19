@@ -1,17 +1,20 @@
-<ul class="nav nav-tabs mt-3">
+<div class="d-flex flex-row justify-content-center container">
+<ul class="nav nav-tabs mt-5 flex-column col-md-3 align-self-start">
   <li class="nav-item">
-    <a class="nav-link text-dark" data-toggle="tab" (click)="showForm(1)">Information</a>
+    <a class="nav-link text-dark" data-toggle="tab" (click)="showForm(1)"
+    [ngClass]= "{'active': currentForm === 1}">Information</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link text-dark" data-toggle="tab" (click)="showForm(2)">Adresse</a>
+    <a class="nav-link text-dark" data-toggle="tab" (click)="showForm(2)"
+    [ngClass]= "{'active': currentForm === 2}">Adresse</a>
   </li>
 </ul>
-<div class="tab-content">
-  <div *ngIf="currentForm === 1" id="userModificationForm" class="">
+<div class="tab-content col-md-8 m-5">
+  <div *ngIf="currentForm === 1" id="tab1">
     <div *ngIf="user">
-      <div class="container mt-3">
+      <div class="">
         <div class="row justify-content-center">
-          <div class="col-md-6">
+          <div class="">
             <div *ngIf="message"
               [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
               {{ message }}
@@ -19,11 +22,10 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div class="">
         <div class="row justify-content-center">
-          <div class="col-md-6">
+          <div class="">
             <div class="card">
-              <div class="card-header d-flex justify-content-between">Modifier le profil</div>
               <div class="card-body">
                 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                   <div class="form-group mb-3">
@@ -70,11 +72,11 @@
       </div>
     </div>
   </div>
-  <div *ngIf="currentForm === 2" id="addressModificationForm" class="">
+  <div *ngIf="currentForm === 2" id="tab2">
     <div *ngIf="address">
-      <div class="container mt-3">
+      <div class="">
         <div class="row justify-content-center">
-          <div class="col-md-6">
+          <div class="">
             <div *ngIf="message"
               [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
               {{ message }}
@@ -82,11 +84,10 @@
           </div>
         </div>
       </div>
-      <div id="address" class="container my-3">
+      <div id="address" class="">
         <div class="row justify-content-center">
-          <div class="col-md-6">
+          <div class="">
             <div class="card">
-              <div class="card-header">Modifier l'address</div>
               <div class="card-body">
                 <form [formGroup]="addressForm" (ngSubmit)="onAddressSubmit()">
                   <div class="form-group mb-3">
@@ -117,4 +118,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>
