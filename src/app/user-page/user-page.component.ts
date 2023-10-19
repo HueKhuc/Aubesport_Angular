@@ -29,12 +29,12 @@ export class UserPageComponent implements OnInit {
 
     this.profileForm = this.formBuilder.group({
       email: [{ value: '', disabled: true }],
-      pseudo: [''],
-      bio: [''],
-      firstName: [''],
-      lastName: [''],
-      gender: [''],
-      birthday: [{ value: Date }]
+      pseudo: [],
+      bio: [],
+      firstName: [],
+      lastName: [],
+      gender: [],
+      birthday: []
     });
 
     this.userService.getUser().subscribe((user) => {
@@ -58,12 +58,12 @@ export class UserPageComponent implements OnInit {
     
     const updatedUser: User = {
       ...this.user,
-      pseudo: this.profileForm.get('pseudo')?.value ?? null,
-      bio: this.profileForm.get('bio')?.value ?? null,
-      firstName: this.profileForm.get('firstName')?.value ?? null,
-      lastName: this.profileForm.get('lastName')?.value ?? null,
-      gender: this.profileForm.get('gender')?.value ?? null,
-      birthday: this.profileForm.get('birthday')?.value ?? null,
+      pseudo: this.profileForm.get('pseudo')?.value,
+      bio: this.profileForm.get('bio')?.value,
+      firstName: this.profileForm.get('firstName')?.value,
+      lastName: this.profileForm.get('lastName')?.value,
+      gender: this.profileForm.get('gender')?.value,
+      birthday: this.profileForm.get('birthday')?.value,
     };
 
     this.submitted = true;
