@@ -1,11 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { User } from '../models/User.model';
-import { UserService } from '../services/user.service';
+import { User } from '../../models/User.model';
+import { UserService } from '../../services/user.service';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserList } from '../models/UserList.model';
-import { AuthGuardService } from '../services/authGuard.service';
+import { UserList } from '../../models/UserList.model';
+import { AuthGuardService } from '../../services/authGuard.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -18,32 +19,28 @@ export class UsersComponent implements OnInit {
   user$!: Observable<User[]>;
   selectedUser: User | null = null;
 
-  @ViewChild('content', { static: false }) content: ElementRef;
   @ViewChild('deleteConfirmation', { static: false }) deleteConfirmation: ElementRef;
   @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
 
   constructor(
-    private user: UserService,
+    private userService: UserService,
     private authGuard: AuthGuardService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     if (this.authGuard.canActivate()) {
-      this.user.getAllUsers().subscribe((data: UserList) => {
+      this.userService.getAllUsers().subscribe((data: UserList) => {
         this.users = data.elements;
       });
     }
   }
 
-  viewUser(user: User) {
-    this.selectedUser = user;
-    this.modalService.open(this.content, { centered: true, size: 'lg' });
-  }
-
-  editUser(user: User | null) {
+  onModify(user: User | null) {
     if (user) {
       this.selectedUser = user;
+      this.router.navigate(['user', user.uuid]);
     }
   }
 
@@ -58,7 +55,7 @@ export class UsersComponent implements OnInit {
     if (user) {
       this.selectedUser = user;
 
-      this.user.deleteUser(this.selectedUser).subscribe(
+      this.userService.deleteUser(this.selectedUser).subscribe(
         () => {
           this.modalService.dismissAll('Delete');
           this.modalService.open(this.deleteInfo, { centered: true, size: 'md' });
