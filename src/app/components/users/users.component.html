@@ -39,7 +39,7 @@
   <div class="d-flex flex-row justify-content-between">
     <button class="btn btn-outline-dark" (click)="onPreviousPage()" [disabled]="currentPage === 1">Précédent</button>
     <button class="btn btn-outline-dark" (click)="onNextPage()" [disabled]="currentPage === totalOfPages"
-      [disabled]="totalOfPages === 1 || currentPage === totalOfPages">Suivant</button>
+      [disabled]="totalOfPages === 1">Suivant</button>
   </div>
 </div>
 

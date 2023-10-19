@@ -45,6 +45,7 @@ export class UsersComponent implements OnInit {
       this.users = data.elements;
       this.nextPage = data.nextPage;
       this.previousPage = data.previousPage;
+      this.totalOfPages = data.totalOfPages;
     });
   }
 
