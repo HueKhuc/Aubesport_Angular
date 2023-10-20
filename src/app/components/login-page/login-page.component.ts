@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginResponse } from 'src/app/models/LoginResponse.model';
+import { AuthService } from 'src/app/services/authService';
 
 @Component({
   selector: 'app-login-page',
@@ -16,11 +17,12 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
   
   ngOnInit(): void {
-    if (localStorage.getItem('token') !== null) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['/'])
     }
   }
@@ -45,7 +47,7 @@ export class LoginPageComponent implements OnInit {
       }
     ).subscribe(response => {
       this.submitted = false;
-      localStorage.setItem('token', response.token);
+      this.authService.saveToken(response.token);
       this.router.navigate(['/'])
     });
   }

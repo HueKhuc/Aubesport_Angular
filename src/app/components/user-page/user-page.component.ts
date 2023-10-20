@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../models/User.model';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/models/Address.model';
+import { AuthService } from 'src/app/services/authService';
 
 @Component({
   selector: 'app-user-page',
@@ -27,11 +28,12 @@ export class UserPageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.userUuid = this.userService.getUuidFromToken();
+    this.userUuid = this.authService.getConnectedUserId();
 
     this.route.paramMap.subscribe(params => {
       const userId = params.get('uuid');
