@@ -56,6 +56,10 @@ export class UserService {
     return this.http.patch<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.headers });
   }
 
+  postAddress(userUuid: string, address: Address): Observable<Address> {
+    return this.http.post<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.headers });
+  }
+
   deleteUser(user: User): Observable<User> {
     return this.http.delete<User>(`${this.api}/${user.uuid}`, { headers: this.headers });
   }

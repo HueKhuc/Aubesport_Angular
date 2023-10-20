@@ -21,6 +21,7 @@ export class UserPageComponent implements OnInit {
   message: string | null = null;
   isError: boolean;
   currentForm = 1;
+  existedAddress = false;
   private userUuid: string;
 
   constructor(
@@ -71,6 +72,7 @@ export class UserPageComponent implements OnInit {
 
     this.userService.getAddressByUserUuid(this.userUuid).subscribe(response => {
       this.address = response;
+      this.existedAddress = true;
 
       this.addressForm.patchValue({
         streetName: this.address.streetName,
@@ -117,12 +119,8 @@ export class UserPageComponent implements OnInit {
     );
   }
 
-  onAddressSubmit() {
-    if (this.submitted) {
-      return;
-    }
-
-    const updatedAddress: Address = {
+  getSubmittedAddress() {
+    const submittedAddress: Address = {
       ...this.address,
       streetName: this.addressForm.get('streetName')?.value,
       streetNumber: this.addressForm.get('streetNumber')?.value,
@@ -130,13 +128,47 @@ export class UserPageComponent implements OnInit {
       postalCode: this.addressForm.get('postalCode')?.value,
     };
 
+    return submittedAddress;
+  }
+
+  onUpdateAddressSubmit() {
+    if (this.submitted) {
+      return;
+    }
+
+    const updatedAddress = this.getSubmittedAddress();
+
     this.submitted = true;
     this.message = null;
 
     this.userService.updateAddress(this.userUuid, updatedAddress).subscribe(
       () => {
         this.submitted = false;
-        this.message = 'Profile updated successfully.';
+        this.message = 'Address updated successfully.';
+        this.isError = false;
+      },
+      (error: { error: { detail: string | null; }; }) => {
+        this.submitted = false;
+        this.message = error.error.detail;
+        this.isError = true;
+      }
+    );
+  }
+
+  onCreateAddressSubmit() {
+    if (this.submitted) {
+      return;
+    }
+
+    const createdAddress = this.getSubmittedAddress();
+
+    this.submitted = true;
+    this.message = null;
+
+    this.userService.postAddress(this.userUuid, createdAddress).subscribe(
+      () => {
+        this.submitted = false;
+        this.message = 'Address updated successfully.';
         this.isError = false;
       },
       (error: { error: { detail: string | null; }; }) => {
