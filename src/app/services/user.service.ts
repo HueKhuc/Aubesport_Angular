@@ -3,37 +3,26 @@ import { User } from '../models/User.model';
 import { Observable } from 'rxjs';
 import { UserList } from '../models/UserList.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Token } from '../models/Token.model';
 import { Address } from '../models/Address.model';
-import jwt_decode from "jwt-decode";
+import { AuthService } from './authService';
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class UserService {
-  private jwt: string | null; // Déplacez la récupération du JWT dans le constructeur
   private headers: HttpHeaders;
   private api: string;
-  private decoded: Token;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
     this.api = 'http://localhost:8000/api/users';
 
-    // Récupérez le JWT depuis le localStorage dans le constructeur
-    this.jwt = localStorage.getItem('token');
-
-    if (this.jwt) {
       this.headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.jwt}`,
+        'Authorization': `Bearer ${this.authService.getToken()}`,
       });
-
-      this.decoded = jwt_decode<Token>(this.jwt);
-    }
-  }
-
-  getUuidFromToken() {
-    return this.decoded.id;
   }
 
   getUserByUuid(userUuid: string): Observable<User> {

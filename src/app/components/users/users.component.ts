@@ -4,7 +4,6 @@ import { UserService } from '../../services/user.service';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserList } from '../../models/UserList.model';
-import { AuthGuardService } from '../../services/authGuard.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
@@ -29,15 +28,12 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authGuard: AuthGuardService,
     private modalService: NgbModal,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    if (this.authGuard.canActivate()) {
-      this.fetchData();
-    }
+    this.fetchData();
   }
 
   fetchData() {
