@@ -9,11 +9,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./inscription.component.css']
 })
 
-export class InscriptionComponent implements OnInit{
+export class InscriptionComponent implements OnInit {
   submitted = false;
   inscriptionForm: FormGroup;
   message: string | null = null;
-  isError: boolean;
+  isError = true;
 
   constructor(
     private userService: UserService,
