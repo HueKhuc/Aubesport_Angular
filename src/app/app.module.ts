@@ -8,6 +8,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { InscriptionComponent } from './components/inscription/inscription.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
     UsersComponent,
     LoginPageComponent,
     UserPageComponent,
+    InscriptionComponent,
   ],
   imports: [
     BrowserModule,

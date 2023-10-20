@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './components/users/users.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { InscriptionComponent } from './components/inscription/inscription.component';
 
 const routes: Routes = [
   { path: '', component: UsersComponent },
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: "login", component: LoginPageComponent },
   { path: "myaccount", component: UserPageComponent },
   { path: "user/:uuid", component: UserPageComponent },
+  { path: "inscription", component: InscriptionComponent },
 ];
 
 @NgModule({

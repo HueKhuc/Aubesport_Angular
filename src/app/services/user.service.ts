@@ -48,6 +48,10 @@ export class UserService {
     return this.http.get<UserList>(`${this.api}?currentPage=${currentPage}&elementsPerPage=${elementsPerPage}`, { headers: this.headers });
   }
 
+  postUser(user: User): Observable<User> {
+    return this.http.post<User>(this.api, user);
+  }
+
   updateUser(user: User): Observable<User> {
     return this.http.patch<User>(`${this.api}/${user.uuid}`, user, { headers: this.headers });
   }
