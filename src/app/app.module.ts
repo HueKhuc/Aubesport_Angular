@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
     LoginPageComponent,
     UserPageComponent,
     InscriptionComponent,
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
