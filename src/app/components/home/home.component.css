@@ -1,9 +1,10 @@
 header {
-  background-image: url("src\assets\images\banniere_AUBesport.png");
+  background-image: url("src\assets\images\site_aubesport_banniere.png");
   background-position: center;
   background-size: cover;
   padding-top: 20px;
   height: 80vh;
+  position: relative;
 }
 #header_title{
     margin-top: 90px;
@@ -13,7 +14,7 @@ header {
 }
 #cashprize{
   background: rgb(1, 1, 27);
-  position: relative;
+ 
 }
 #inscris{
 background: url('src\assets\images\backgound_inscrit.png');
@@ -25,7 +26,7 @@ height: 86px;
 padding-top: 20px;
 z-index: 999999;
 position: absolute;
-bottom: 120px;
+bottom: 140px;
 left: 39%;
 border-radius: 120px;
 
@@ -34,4 +35,8 @@ border-radius: 120px;
   text-decoration: none;
   font-size: 1.7rem;
   margin-left: 75px;
+}
+
+.partenaires{
+width: 200px;
 }
