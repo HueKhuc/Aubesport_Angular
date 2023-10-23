@@ -11,8 +11,8 @@ import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
 
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
+import { NavComponent } from './components/nav/nav.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +21,10 @@ import { HomeComponent } from './home/home.component';
     LoginPageComponent,
     UserPageComponent,
     InscriptionComponent,
-<<<<<<< HEAD
     TournamentComponent,
-=======
-    HeaderComponent,
-    HomeComponent
->>>>>>> a8893a9 (finalisation du header et création du homeComponent)
+    HomeComponent,
+    NavComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +35,6 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
-export class AppModule { }
+export class AppModule {}
