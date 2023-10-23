@@ -1,0 +1,39 @@
+<!-- <nav *ngIf="isHomePage">
+    <div class="container">
+      <div class="d-flex justify-content-between  align-items-center">
+        <ul  class="d-flex gap-4 justify-content-between  align-items-center ">
+          <a href="#"><img src="assets\images\LOGO_AUBesport2.png" alt="logo" id="logo"></a>
+          <li> <a href="#" class="text-white">INSCRIPTION</a></li>
+          <li> <a href="#" class="text-white">BILLETERIE</a></li>
+          <li> <a href="#" class="text-white">SHOP</a></li>
+          <li> <a href="#" class="text-white">SALON</a></li>
+        </ul>
+        <ul   class="d-flex gap-4 justify-content-between  align-items-center">
+          <li ><a href="#"class="text-white">PARTENAIRES</a></li>
+          <li ><a href="#"class="text-white">INFOS</a></li>
+          <li ><a href="#"class="text-white">BLOG</a></li>
+          <li ><a href="#"><img src="assets/images/contact_logo.png" alt="contact" id="contact_logo"></a></li>
+        </ul>
+      </div> 
+  </div>
+</nav> -->
+
+<nav [ngClass]="{'navbar-transparent': isHomePage}">
+  <div class="container">
+    <div class="d-flex justify-content-between  align-items-center">
+      <ul  class="d-flex gap-2 justify-content-between  align-items-center ">
+        <a href="#"><img src="assets\images\LOGO_AUBesport2.png" alt="logo" id="logo"></a>
+        <li> <a href="#" class="text-white">INSCRIPTION</a></li>
+        <li> <a href="#" class="text-white">BILLETERIE</a></li>
+        <li> <a href="#" class="text-white">SHOP</a></li>
+        <li> <a href="#" class="text-white">SALON</a></li>
+      </ul>
+      <ul   class="d-flex gap-4 justify-content-between  align-items-center">
+        <li ><a href="#"class="text-white">PARTENAIRES</a></li>
+        <li ><a href="#"class="text-white">INFOS</a></li>
+        <li ><a href="#"class="text-white">BLOG</a></li>
+        <li ><a href="#"><img src="assets/images/contact_logo.png" alt="contact" id="contact_logo"></a></li>
+      </ul>
+    </div> 
+</div>
+</nav>
