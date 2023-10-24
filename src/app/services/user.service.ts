@@ -20,9 +20,9 @@ export class UserService {
   ) {
     this.api = 'http://localhost:8000/api/users';
 
-      this.headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.authService.getToken()}`,
-      });
+    this.headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`,
+    });
   }
 
   getUserByUuid(userUuid: string): Observable<User> {

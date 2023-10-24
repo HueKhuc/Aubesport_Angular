@@ -1,0 +1,21 @@
+<div class="container mt-5 offset-3">
+    <div class="row">
+        <div class="col-md-6" *ngFor="let tournament of tournaments">
+            <div *ngIf="message"
+                [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
+                {{ message }}
+            </div>
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ tournament.name }}</h5>
+                    <p class="card-text">Date: {{ tournament.startingDate | date }}</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab aspernatur adipisci iste fugit quod
+                        dolorum, quasi doloribus ipsam modi, corrupti numquam atque dolores. Neque reiciendis dolorum
+                        nesciunt voluptatibus itaque tempora?</p>
+                    <button (click)="registerForTournament(tournament)" class="btn btn-primary"
+                        [disabled]="submitted">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
