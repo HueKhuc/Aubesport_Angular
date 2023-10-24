@@ -13,7 +13,6 @@ export class TournamentService {
   private headers: HttpHeaders;
   private api: string;
   tournament: Tournament;
-  TournamentList: Tournament[];
   tournamentRegistration: TournamentRegistration;
 
   constructor(
@@ -36,5 +35,9 @@ export class TournamentService {
 
   createTournamentRegistration(tournamentRegistration: TournamentRegistration): Observable<TournamentRegistration> {
     return this.http.post<TournamentRegistration>(`${this.api}/tournament-registrations`, tournamentRegistration, { headers: this.headers });
+  }
+
+  getTounamentRegistrationsOfUser(uuid: string): Observable<TournamentRegistration[]> {
+    return this.http.get<TournamentRegistration[]>(`${this.api}/users/${uuid}/tournament-registrations`, { headers: this.headers });
   }
 }

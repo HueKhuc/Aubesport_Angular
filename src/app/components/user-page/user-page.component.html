@@ -1,16 +1,20 @@
 <div class="d-flex flex-row justify-content-center container">
   <ul class="nav nav-tabs mt-5 flex-column col-md-3 align-self-start">
     <li class="nav-item">
-      <a class="nav-link text-dark" data-toggle="tab" (click)="showForm(1)"
-        [ngClass]="{'active': currentForm === 1}">Information</a>
+      <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('information')"
+        [ngClass]="{'active': currentTab === 'information'}">Information</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark" data-toggle="tab" (click)="showForm(2)"
-        [ngClass]="{'active': currentForm === 2}">Adresse</a>
+      <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('address')"
+        [ngClass]="{'active': currentTab === 'address'}">Adresse</a>
+    </li>
+    <li *ngIf="(tournamentRegistrations)" class="nav-item">
+      <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('tournament')"
+        [ngClass]="{'active': currentTab === 'tournament'}">Inscription au(x) tournoi(s)</a>
     </li>
   </ul>
   <div class="tab-content col-md-8 m-5">
-    <div *ngIf="currentForm === 1" id="tab1">
+    <div *ngIf="currentTab === 'information'" id="tab1">
       <div class="">
         <div class="row justify-content-center">
           <div class="">
@@ -70,7 +74,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="currentForm === 2" id="tab2">
+    <div *ngIf="currentTab === 'address'" id="tab2">
       <div class="row justify-content-center">
         <div *ngIf="message"
           [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
@@ -103,6 +107,25 @@
                   [disabled]="submitted || addressForm.pristine">Sauvegarder</button>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="currentTab === 'tournament'" id="tab3">
+      <div class="row justify-content-center">
+        <div class="" *ngFor="let tournamentRegistration of tournamentRegistrations">
+          <div class="card mb-3">
+            <div class="card-body text-center">
+              <h5 class="card-title">Statut: {{ tournamentRegistration.status }}</h5>
+              <p class="card-text">Date d'inscription: {{ tournamentRegistration.createdAt | date }}</p>
+              <button *ngIf="seeMore === false" (click)="onSeeMore(tournamentRegistration)" class="btn btn-primary"
+                [disabled]="submitted">Voir</button>
+              <div *ngIf="seeMore === true">
+                <p class="card-text">{{ tournament.name }}</p>
+                <p class="card-text">Date de début le {{ tournament.startingDate | date}}</p>
+                <p class="card-text">Date de fin le {{ tournament.endingDate | date}}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

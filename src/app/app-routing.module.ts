@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: "myaccount", component: UserPageComponent, canActivate: [AuthGuard] },
   { path: "user/:uuid", component: UserPageComponent, canActivate: [AuthGuard] },
   { path: "inscription", component: InscriptionComponent },
-  { path: "tournament", component: TournamentComponent },
+  { path: "tournament", component: TournamentComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
