@@ -8,7 +8,7 @@
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('address')"
         [ngClass]="{'active': currentTab === 'address'}">Adresse</a>
     </li>
-    <li *ngIf="(tournamentRegistrations)" class="nav-item">
+    <li *ngIf="tournamentRegistrations.length !== 0" class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('tournament')"
         [ngClass]="{'active': currentTab === 'tournament'}">Inscription au(x) tournoi(s)</a>
     </li>
