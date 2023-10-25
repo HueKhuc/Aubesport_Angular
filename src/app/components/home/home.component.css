@@ -3,40 +3,154 @@ header {
   background-position: center;
   background-size: cover;
   padding-top: 20px;
-  height: 80vh;
+  height: 55vh;
   position: relative;
 }
 #header_title{
-    margin-top: 90px;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
     font-weight: 600;
-
 }
 #cashprize{
   background: rgb(1, 1, 27);
- 
+  position: relative;
 }
-#inscris{
-background: url('src\assets\images\backgound_inscrit.png');
-background-repeat: no-repeat;
-background-position: center;
-background-size: cover;
-width: 300px;
-height: 86px;
-padding-top: 20px;
-z-index: 999999;
-position: absolute;
-bottom: 140px;
-left: 39%;
-border-radius: 120px;
+#cashprize .image ::after{
+  content: "";
+  background-color: rgba(105, 9, 134, 0.799);
+  width: 90%;
+  height: 2px;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+}
+#cashprize h3{
+  /* margin-right: 50px; */
+  font-size: 2.2rem;
+}
+#cashprize_img{
 
+  max-width: 300px;
+  rotate: 35deg;
+  margin-left: 75%;
+  margin-top: -60px;
+  margin-bottom: 20px;
 }
+#resgistration-btn{
+  font-size: larger;
+  padding-top: 10px;
+  text-decoration: none;
+  display: inline-block;
+  width: 80vw;
+  height: 50px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  background: rgb(0,154,139);
+background: radial-gradient(circle, rgba(106, 19, 97, 0.9) 0%, rgba(1,1,27,0.5718487223991159) 100%); 
+}
+
 #inscris a{
   text-decoration: none;
   font-size: 1.7rem;
-  margin-left: 75px;
+  padding-bottom: 10px;
+  /* margin-left: 75px; */
 }
 
 .partenaires{
 width: 200px;
+}
+#project{
+  background: rgb(1, 1, 27);
+}
+
+#project h2{
+  color: rgb(8, 35, 25);
+  font-size: 2.5rem;
+  font-weight: 800;
+  background-color: antiquewhite;
+  width: fit-content;
+  padding: 6px 20px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  margin-top: 30px;
+}
+#aubesport-title{
+  rotate: -8deg;
+}
+#projet-title{
+  rotate: 8deg;
+}
+
+#bubble {
+  background-color: antiquewhite;
+  color: #000000;
+  padding: 80px 40px;
+  height: 225px;
+  width: 225px;
+  border-radius: 50%;
+  /* display: inline-block; */
+  position: relative;
+  /* overflow: hidden;
+  z-index: 9999999; */
+}
+
+#bubble::before {
+  content: "";
+  position: absolute;
+  top: 163px;
+  left: 40px;
+  width: 219px;
+  height: 130px;
+  border-radius: 50%;
+  background-color:antiquewhite;
+  z-index: 9999999;
+}
+
+#bubble::after {
+  content: "";
+  position: absolute;
+  top: -49px;
+  left: 138px;
+  width: 136px;
+  height: 151px;
+  border-radius: 50%;
+  background-color:antiquewhite;
+  z-index: 9999999;
+}
+#project-pt2 img {
+  max-width: 300px;
+}
+#blog{
+  position: relative;
+  background: antiquewhite;
+  border-radius: 50%;
+  height: 99px;
+  width: 132px;
+  padding: 20px;
+  z-index: 99999;
+  bottom: 156px;
+  left: 488px;
+}
+#blog::after{
+  content: "";
+  position: absolute;
+  background: antiquewhite;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  width: 136px;
+  height: 151px;
+  top: 48px;
+  left: 40px;
+
+}
+
+/* *********************
+** Responsive**
+***************************** */
+@media (max-width: 768px) {
+
+#cashprize_img{
+  display: none;
+}
+
 }

@@ -10,9 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
+import { CommonModule } from '@angular/common';
 
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
+
 
 @NgModule({
   declarations: [
@@ -37,4 +39,5 @@ import { HomeComponent } from './components/home/home.component';
   providers: [],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}

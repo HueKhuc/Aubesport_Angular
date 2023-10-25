@@ -1,5 +1,3 @@
-
-
 ul {
   list-style-type: none;
 }
@@ -14,25 +12,42 @@ a {
   width: 60px;
 
 }
-
-/* .bg-transparent{
-
-  background:  rgba(0, 0, 0, 0);
-
-}
-.bg-colored{
-  background: linear-gradient(157deg, rgba(1,15,105,0.9275910193178833) 23%, rgba(154,0,120,0.9303921397660627) 77%); 
-} */
-
 .bg-transparent {
   background-color: transparent;
   transition: background-color 0.3s ease; 
 }
 
-/* Navbar rouge pour les autres pages */
+
 .bg-colored {
-  /* background-color: red; Vous pouvez définir la couleur que vous souhaitez */
   background: linear-gradient(157deg, rgba(1,15,105,0.9275910193178833) 23%, rgba(154,0,120,0.9303921397660627) 77%); 
   transition: background-color 0.3s ease; 
 }
+/* Styles pour l'icône du menu burger */
+.menu-button {
+  cursor: pointer;
+  font-size: 24px; /* Taille de l'icône */
+  color: #ffffff; /* Couleur de l'icône */
+  margin-left: 80%; /* Espacement entre le bouton et le logo */
+}
 
+.nav-item{
+  margin-left: 70%;
+}
+#navburger{
+  display: none;
+}
+
+/* ************************
+**Responsive **
+**********************************/
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
+  #navextand{
+    display: none;
+  }
+  #navburger{
+    display: block;
+  }
+}

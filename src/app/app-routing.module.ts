@@ -8,6 +8,7 @@ import { AuthGuard } from './services/authGuard';
 import { TournamentComponent } from './components/tournament/tournament.component';
 import { HomeComponent } from './components/home/home.component';
 
+
 const routes: Routes = [
   { path: "users", component: UsersComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginPageComponent },
