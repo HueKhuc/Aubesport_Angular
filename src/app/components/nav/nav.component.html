@@ -1,7 +1,11 @@
-<nav [ngClass]="{'bg-transparent': isHomePage, 'bg-colored': !isHomePage}">
+
+<nav [ngClass]="{'bg-transparent': isHomePage, 'bg-colored': !isHomePage}" class="navbar-expand-lg">
+
   <div class="container">
-    <div class="d-flex justify-content-between  align-items-center">
-      <ul  class="d-flex gap- justify-content-between  align-items-center ">
+    <div id="navextand">
+    <div [ngClass]="{'collapse': !isMenuOpen}" class="d-flex justify-content-between  align-items-center ">
+      
+      <ul  class="d-flex gap-4 justify-content-between  align-items-center " >
         <a><img src="assets\images\LOGO_AUBesport2.png" alt="logo" id="logo"></a>
         <li> <a  class="text-white">INSCRIPTION</a></li>
         <li> <a  class="text-white">BILLETERIE</a></li>
@@ -15,5 +19,104 @@
         <li ><a [routerLink]="['/login']" ><img src="assets/images/contact_logo.png" alt="contact" id="contact_logo"></a></li>
       </ul>
     </div> 
+
+  </div>
+<div id="navburger">
+  <div class="d-flex justify-content-between align-items-center">
+    <a><img src="assets\images\LOGO_AUBesport2.png" alt="logo" id="logo"></a>
+    
+
+    <div class="menu-button d-md-none d-lg-none" *ngIf="isMobile" (click)="toggleMenu()">
+      <i class="fas fa-bars"></i> 
+    </div>
+    
+
+    <button class="navbar-toggler d-none d-sm-none d-md-block d-lg-block" type="button" (click)="toggleMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</div>
+
+<div [ngClass]="{'collapse': !isMenuOpen}" class="container">
+  <ul  class="d-flex gap-4 justify-content-between  align-items-center " >
+    <li> <a  class="text-white">INSCRIPTION</a></li>
+    <li> <a  class="text-white">BILLETERIE</a></li>
+    <li> <a  class="text-white">SHOP</a></li>
+    <li> <a  class="text-white">SALON</a></li>
+  </ul>
+  <ul   class="d-flex gap-4 justify-content-between  align-items-center">
+    <li ><a class="text-white">PARTENAIRES</a></li>
+    <li ><a class="text-white">INFOS</a></li>
+    <li ><a class="text-white">BLOG</a></li>
+    <li ><a [routerLink]="['/login']" ><img src="assets/images/contact_logo.png" alt="contact" id="contact_logo"></a></li>
+  </ul>
+</div>
 </div>
 </nav>
+
+
+<!-- 
+<nav [ngClass]="{'bg-transparent': isHomePage, 'bg-colored': !isHomePage}">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <a><img src="assets\images\LOGO_AUBesport2.png" alt="logo" id="logo"></a>
+      
+
+      <div class="menu-button d-md-none d-lg-none" *ngIf="isMobile" (click)="toggleMenu()">
+        <i class="fas fa-bars"></i> 
+      </div>
+      
+ 
+      <button class="navbar-toggler d-none d-sm-none d-md-block d-lg-block" type="button" (click)="toggleMenu()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <div [ngClass]="{'collapse': !isMenuOpen}" class="container">
+    <ul  class="d-flex gap-4 justify-content-between  align-items-center " >
+      <li> <a  class="text-white">INSCRIPTION</a></li>
+      <li> <a  class="text-white">BILLETERIE</a></li>
+      <li> <a  class="text-white">SHOP</a></li>
+      <li> <a  class="text-white">SALON</a></li>
+    </ul>
+    <ul   class="d-flex gap-4 justify-content-between  align-items-center">
+      <li ><a class="text-white">PARTENAIRES</a></li>
+      <li ><a class="text-white">INFOS</a></li>
+      <li ><a class="text-white">BLOG</a></li>
+      <li ><a [routerLink]="['/login']" ><img src="assets/images/contact_logo.png" alt="contact" id="contact_logo"></a></li>
+    </ul>
+  </div>
+</nav> -->
+
+
+<!-- <nav [ngClass]="{'bg-transparent': isHomePage, 'bg-colored': !isHomePage}">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <a><img src="assets\images\LOGO_AUBesport2.png" alt="logo" id="logo"></a>
+      
+
+      <div class="menu-button d-md-none d-lg-none" *ngIf="isMobile" (click)="toggleMenu()">
+        <i class="fas fa-bars"></i> 
+      </div>
+      
+ 
+      <button class="navbar-toggler d-none d-sm-none d-md-block d-lg-block" type="button" (click)="toggleMenu()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <div [ngClass]="{'collapse': !isMenuOpen}" class="container">
+    <ul class="navbar-nav">
+      <li class="nav-item text-white"><a class="nav-link" href="#">INSCRIPTION</a></li>
+      <li class="nav-item text-white"><a class="nav-link" href="#">BILLETERIE</a></li>
+      <li class="nav-item text-white"><a class="nav-link" href="#">SHOP</a></li>
+      <li class="nav-item text-white"><a class="nav-link" href="#">SALON</a></li>
+      <li class="nav-item text-white"><a class="nav-link" href="#">PARTENAIRES</a></li>
+      <li class="nav-item text-white"><a class="nav-link" href="#">INFOS</a></li>
+      <li class="nav-item text-white"><a class="nav-link" href="#">BLOG</a></li>
+      <li class="nav-item text-white"><a class="nav-link" [routerLink]="['/login']"><img src="assets/images/contact_logo.png" alt="contact" id="contact_logo"></a></li>
+    </ul>
+  </div>
+</nav> -->

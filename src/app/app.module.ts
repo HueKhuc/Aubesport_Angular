@@ -9,9 +9,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
+import { CommonModule } from '@angular/common';
 
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
+
 
 @NgModule({
   declarations: [

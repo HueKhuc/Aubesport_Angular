@@ -7,6 +7,7 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
 import { AuthGuard } from './services/authGuard';
 import { HomeComponent } from './components/home/home.component';
 
+
 const routes: Routes = [
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPageComponent },
