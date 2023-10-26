@@ -19,3 +19,7 @@
 .nav-tabs .nav-link.active {
   font-weight: bold;
 }
+
+li a {
+  cursor: pointer !important;
+}

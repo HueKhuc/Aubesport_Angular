@@ -18,10 +18,10 @@ export class InscriptionComponent implements OnInit {
   isError = true;
 
   constructor(
-    private userService: UserService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
