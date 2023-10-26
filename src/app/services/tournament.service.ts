@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Tournament } from '../models/Tournament.model';
 import { AuthService } from './authService';
 import { TournamentRegistration } from '../models/TournamentRegistration.model';
+import { TournamentRegistrationList } from '../models/TournamentRegistrationList.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,6 @@ import { TournamentRegistration } from '../models/TournamentRegistration.model';
 export class TournamentService {
   private headers: HttpHeaders;
   private api: string;
-  tournament: Tournament;
-  tournamentRegistration: TournamentRegistration;
 
   constructor(
     private http: HttpClient,
@@ -39,5 +38,18 @@ export class TournamentService {
 
   getTounamentRegistrationsOfUser(uuid: string): Observable<TournamentRegistration[]> {
     return this.http.get<TournamentRegistration[]>(`${this.api}/users/${uuid}/tournament-registrations`, { headers: this.headers });
+  }
+
+  getAllTournamentRegistrations(): Observable<TournamentRegistrationList> {
+    return this.http.get<TournamentRegistrationList>(`${this.api}/tournament-registrations`, { headers: this.headers });
+  }
+
+  acceptTournamentRegistration(uuid: string): Observable<TournamentRegistration> {
+    return this.http.post<TournamentRegistration>(`${this.api}/tournament-registrations/${uuid}/accept`,null, { headers: this.headers });
+  }
+
+  refuseTournamentRegistration(uuid: string): Observable<TournamentRegistration> {
+    // console.log(this.headers);
+    return this.http.post<TournamentRegistration>(`${this.api}/tournament-registrations/${uuid}/refuse`,null, { headers: this.headers });
   }
 }
