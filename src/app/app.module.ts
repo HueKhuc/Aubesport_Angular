@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
+import { TournamentComponent } from './components/tournament/tournament.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
     LoginPageComponent,
     UserPageComponent,
     InscriptionComponent,
+    TournamentComponent,
   ],
   imports: [
     BrowserModule,
