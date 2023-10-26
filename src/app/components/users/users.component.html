@@ -72,7 +72,7 @@
           <p>Vous êtes sûr de vouloir supprimer cet utilisateur (email: {{ selectedUser?.email }})?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="deleteUser(selectedUser)">Supprimer</button>
+          <button type="button" class="btn btn-danger" (click)="deleteUser(selectedUser)" [disabled]="submitted">Supprimer</button>
           <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Annuler</button>
         </div>
       </ng-template>
