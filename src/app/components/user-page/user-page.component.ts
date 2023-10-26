@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../models/User.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/Address.model';
 import { AuthService } from 'src/app/services/authService';
 import { TournamentService } from 'src/app/services/tournament.service';
@@ -27,17 +27,23 @@ export class UserPageComponent implements OnInit {
   private userUuid: string;
   tournamentRegistrations: TournamentRegistration[];
   seeMore = false;
+  isAdmin : boolean;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private tournamentService: TournamentService
+    private tournamentService: TournamentService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.userUuid = this.authService.getConnectedUserId();
+
+    this.isAdmin = this.authService.getConnectedUserRoles().includes('ROLE_ADMIN');
+
+    console.log(this.isAdmin);
 
     this.route.paramMap.subscribe(params => {
       const userId = params.get('uuid');
@@ -195,5 +201,10 @@ export class UserPageComponent implements OnInit {
         this.isError = true;
       }
     );
+  }
+
+  logout() {
+    this.authService.deleteToken();
+    this.router.navigate(['login']);
   }
 }

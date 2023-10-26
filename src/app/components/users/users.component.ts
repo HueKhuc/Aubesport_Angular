@@ -177,4 +177,13 @@ export class UsersComponent implements OnInit {
         })
     }
   }
+
+  redirectToMonCompte() {
+    this.router.navigate(['myaccount']);
+  }
+
+  logout() {
+    this.authService.deleteToken();
+    this.router.navigate(['login']);
+  }
 }
