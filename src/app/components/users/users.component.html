@@ -19,6 +19,12 @@
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('tournamentRegistrations')"
         [ngClass]="{'active': currentTab === 'tournamentRegistrations'}">Inscription au(x) tournoi(s)</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" data-toggle="tab" (click)="redirectToMonCompte()">Mon compte</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" data-toggle="tab" (click)="logout()">Déconnexion</a>
+    </li>
   </ul>
   <div class="tab-content col-md-8 m-5">
     <div *ngIf="currentTab === 'users'" id="tab1">

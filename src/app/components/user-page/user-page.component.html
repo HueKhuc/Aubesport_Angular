@@ -1,5 +1,6 @@
 <div class="d-flex flex-row justify-content-center container">
   <ul class="nav nav-tabs mt-5 flex-column col-md-3 align-self-start">
+    <li><h5 class="text-center mb-3">Mon compte</h5></li>
     <li class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('information')"
         [ngClass]="{'active': currentTab === 'information'}">Information</a>
@@ -11,6 +12,12 @@
     <li *ngIf="(tournamentRegistrations) && tournamentRegistrations.length !== 0" class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('tournament')"
         [ngClass]="{'active': currentTab === 'tournament'}">Inscription au(x) tournoi(s)</a>
+    </li>
+    <li *ngIf="isAdmin === true" class="nav-item">
+      <a class="nav-link text-dark" data-toggle="tab" (click)="logout()">Admin Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" data-toggle="tab" (click)="logout()">Déconnexion</a>
     </li>
   </ul>
   <div class="tab-content col-md-8 m-5">
