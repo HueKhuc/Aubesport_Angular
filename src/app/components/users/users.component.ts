@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { Tournament } from 'src/app/models/Tournament.model';
 import { TournamentRegistration } from 'src/app/models/TournamentRegistration.model';
+import { AuthService } from 'src/app/services/authService';
 
 @Component({
   selector: 'app-users',
@@ -35,36 +36,48 @@ export class UsersComponent implements OnInit {
 
   @ViewChild('deleteConfirmation', { static: false }) deleteConfirmation: ElementRef;
   @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
+  isAccessDenied: boolean;
 
   constructor(
     private userService: UserService,
     private modalService: NgbModal,
     private router: Router,
     private tournamentService: TournamentService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.fetchData();
+    if (this.authService.getConnectedUserRoles().includes("ROLE_ADMIN")) {
+      this.fetchData();
 
-    this.tournamentService.getAllTournaments().subscribe(response => {
-      this.tournaments = response;
-    })
+      this.tournamentService.getAllTournaments().subscribe(response => {
+        this.tournaments = response;
+      })
 
-    this.tournamentService.getAllTournamentRegistrations().subscribe(data => {
-      this.tournamentRegistrations = data.elements;
+      this.tournamentService.getAllTournamentRegistrations().subscribe(data => {
+        this.tournamentRegistrations = data.elements;
 
-      this.tournamentRegistrations.forEach(tournamentRegistration => {
-        this.userService.getUserByUuid(tournamentRegistration.userUuid).subscribe(response => {
-          tournamentRegistration.userEmail = response.email;
-        })
+        this.tournamentRegistrations.forEach(tournamentRegistration => {
+          this.userService.getUserByUuid(tournamentRegistration.userUuid).subscribe(response => {
+            tournamentRegistration.userEmail = response.email;
+          })
 
-        this.tournamentService.getTournament(tournamentRegistration.tournamentUuid).subscribe(response => {
-          tournamentRegistration.tournamentName = response.name;
+          this.tournamentService.getTournament(tournamentRegistration.tournamentUuid).subscribe(response => {
+            tournamentRegistration.tournamentName = response.name;
+          })
         })
       })
-    })
+
+      this.isAccessDenied = false;
+    } else {
+      this.isAccessDenied = true;
+    }
+
   }
 
+  redirectToHomepage() {
+    this.router.navigate(['/'])
+  }
   accept(tournamentRegistration: TournamentRegistration) {
     this.message = null;
 
@@ -106,6 +119,8 @@ export class UsersComponent implements OnInit {
   }
 
   fetchData() {
+    this.message = null;
+
     this.userService.getAllUsers(this.currentPage, this.elementsPerPage).subscribe((data: UserList) => {
       this.users = data.elements;
       this.nextPage = data.nextPage;

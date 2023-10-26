@@ -1,4 +1,8 @@
-<div class="d-flex flex-row justify-content-center container">
+<div *ngIf="isAccessDenied == true" class="alert alert-danger m-5 text-center ">
+  <p> Accès non autorisé </p>
+  <button class="btn btn-primary" (click)="redirectToHomepage()">Aller à la page d'accueil</button>
+</div>
+<div *ngIf="isAccessDenied === false" class="d-flex flex-row justify-content-center container">
   <ul class="nav nav-tabs mt-5 flex-column col-md-3 align-self-start">
     <li class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('users')"
@@ -14,6 +18,9 @@
     </li>
   </ul>
   <div class="tab-content col-md-8 m-5">
+    <div class="text-center">
+      <h5>Admin Dashboard</h5>
+    </div>
     <div *ngIf="currentTab === 'users'" id="tab1">
       <div class="container">
         <div class="col-md-1 mb-1 offset-11">
@@ -72,7 +79,8 @@
           <p>Vous êtes sûr de vouloir supprimer cet utilisateur (email: {{ selectedUser?.email }})?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" (click)="deleteUser(selectedUser)" [disabled]="submitted">Supprimer</button>
+          <button type="button" class="btn btn-danger" (click)="deleteUser(selectedUser)"
+            [disabled]="submitted">Supprimer</button>
           <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Annuler</button>
         </div>
       </ng-template>
