@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/User.model';
+import { AuthService } from 'src/app/services/authService';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,25 +16,33 @@ export class InscriptionComponent implements OnInit {
   inscriptionForm: FormGroup;
   message: string | null = null;
   isError = true;
+  isAccessDenied: boolean;
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-
-    this.inscriptionForm = this.formBuilder.group({
-      email: [[], [Validators.required, Validators.email]],
-      password: [[], Validators.required],
-      pseudo: [],
-      bio: [],
-      firstName: [],
-      lastName: [],
-      gender: [],
-      birthday: [],
-    });
+    if (this.authService.isLoggedIn() === false) {
+      this.inscriptionForm = this.formBuilder.group({
+        email: [[], [Validators.required, Validators.email]],
+        password: [[], Validators.required],
+        pseudo: [],
+        bio: [],
+        firstName: [],
+        lastName: [],
+        gender: [],
+        birthday: [],
+      });
+      this.isAccessDenied = false;
+    } else {
+      this.isAccessDenied = true;
+    }
   }
+
   onSubmit() {
     if (this.submitted) {
       return;
@@ -65,5 +75,9 @@ export class InscriptionComponent implements OnInit {
         this.isError = true;
       }
     );
+  }
+
+  redirectToMyAccount() {
+    this.router.navigate(['myaccount']);
   }
 }

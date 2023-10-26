@@ -33,10 +33,10 @@ export class UsersComponent implements OnInit {
   message: string | null = null;
   isError: boolean;
   submitted = false;
+  isAccessDenied: boolean;
 
   @ViewChild('deleteConfirmation', { static: false }) deleteConfirmation: ElementRef;
   @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
-  isAccessDenied: boolean;
 
   constructor(
     private userService: UserService,
