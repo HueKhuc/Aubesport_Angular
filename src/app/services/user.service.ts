@@ -11,30 +11,25 @@ import { AuthService } from './authService';
 })
 
 export class UserService {
-  private headers: HttpHeaders;
-  private api: string;
+  private headers: HttpHeaders | null = null;
+  private api = 'http://localhost:8000/api/users';
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) {
-    this.api = 'http://localhost:8000/api/users';
-
-    this.headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`,
-    });
   }
 
   getUserByUuid(userUuid: string): Observable<User> {
-    return this.http.get<User>(`${this.api}/${userUuid}`, { headers: this.headers });
+    return this.http.get<User>(`${this.api}/${userUuid}`, { headers: this.getAutorizationHeaders() });
   }
 
   getAddressByUserUuid(userUuid: string): Observable<Address> {
-    return this.http.get<Address>(`${this.api}/${userUuid}/address`, { headers: this.headers });
+    return this.http.get<Address>(`${this.api}/${userUuid}/address`, { headers: this.getAutorizationHeaders() });
   }
 
   getAllUsers(currentPage: number, elementsPerPage: number): Observable<UserList> {
-    return this.http.get<UserList>(`${this.api}?currentPage=${currentPage}&elementsPerPage=${elementsPerPage}`, { headers: this.headers });
+    return this.http.get<UserList>(`${this.api}?currentPage=${currentPage}&elementsPerPage=${elementsPerPage}`, { headers: this.getAutorizationHeaders() });
   }
 
   postUser(user: User): Observable<User> {
@@ -42,18 +37,28 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.patch<User>(`${this.api}/${user.uuid}`, user, { headers: this.headers });
+    return this.http.patch<User>(`${this.api}/${user.uuid}`, user, { headers: this.getAutorizationHeaders() });
   }
 
   updateAddress(userUuid: string, address: Address): Observable<Address> {
-    return this.http.patch<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.headers });
+    return this.http.patch<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.getAutorizationHeaders() });
   }
 
   postAddress(userUuid: string, address: Address): Observable<Address> {
-    return this.http.post<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.headers });
+    return this.http.post<Address>(`${this.api}/${userUuid}/address`, address, { headers: this.getAutorizationHeaders() });
   }
 
   deleteUser(user: User): Observable<User> {
-    return this.http.delete<User>(`${this.api}/${user.uuid}`, { headers: this.headers });
+    return this.http.delete<User>(`${this.api}/${user.uuid}`, { headers: this.getAutorizationHeaders() });
+  }
+
+  private getAutorizationHeaders(): HttpHeaders {
+    if (this.headers === null) {
+      this.headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.authService.getToken()}`,
+      });
+    }
+
+    return this.headers;
   }
 }
