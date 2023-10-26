@@ -80,4 +80,9 @@ export class InscriptionComponent implements OnInit {
   redirectToMyAccount() {
     this.router.navigate(['myaccount']);
   }
+
+  logout() {
+    this.authService.deleteToken();
+    this.isAccessDenied = false;
+  }
 }
