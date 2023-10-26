@@ -16,7 +16,6 @@ export class InscriptionComponent implements OnInit {
   inscriptionForm: FormGroup;
   message: string | null = null;
   isError = true;
-  isAccessDenied: boolean;
 
   constructor(
     private userService: UserService,
@@ -37,9 +36,8 @@ export class InscriptionComponent implements OnInit {
         gender: [],
         birthday: [],
       });
-      this.isAccessDenied = false;
     } else {
-      this.isAccessDenied = true;
+      this.router.navigate(['/']);
     }
   }
 
@@ -75,9 +73,5 @@ export class InscriptionComponent implements OnInit {
         this.isError = true;
       }
     );
-  }
-
-  redirectToMyAccount() {
-    this.router.navigate(['myaccount']);
   }
 }
