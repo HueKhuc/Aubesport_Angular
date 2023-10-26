@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../models/User.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/Address.model';
 import { AuthService } from 'src/app/services/authService';
+import { TournamentService } from 'src/app/services/tournament.service';
+import { TournamentRegistration } from 'src/app/models/TournamentRegistration.model';
+import { Tournament } from 'src/app/models/Tournament.model';
 
 @Component({
   selector: 'app-user-page',
@@ -13,7 +16,6 @@ import { AuthService } from 'src/app/services/authService';
 })
 
 export class UserPageComponent implements OnInit {
-
   user: User;
   profileForm: FormGroup;
   address: Address;
@@ -21,19 +23,30 @@ export class UserPageComponent implements OnInit {
   submitted = false;
   message: string | null = null;
   isError: boolean;
-  currentForm = 1;
+  currentTab = 'information';
   existedAddress = false;
   private userUuid: string;
+  tournamentRegistrations: TournamentRegistration[];
+  tournamentRegistration: TournamentRegistration;
+  tournament: Tournament;
+  seeMore = false;
+  isAdmin : boolean;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private tournamentService: TournamentService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.userUuid = this.authService.getConnectedUserId();
+
+    this.isAdmin = this.authService.getConnectedUserRoles().includes('ROLE_ADMIN');
+
+    console.log(this.isAdmin);
 
     this.route.paramMap.subscribe(params => {
       const userId = params.get('uuid');
@@ -41,6 +54,10 @@ export class UserPageComponent implements OnInit {
         this.userUuid = userId;
       }
     });
+
+    this.tournamentService.getTounamentRegistrationsOfUser(this.userUuid).subscribe(response => {
+      this.tournamentRegistrations = response;
+    })
 
     this.profileForm = this.formBuilder.group({
       email: [{ value: '', disabled: true }],
@@ -85,8 +102,8 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  showForm(formNumber: number): void {
-    this.currentForm = formNumber;
+  showTab(tabName: string): void {
+    this.currentTab = tabName;
   }
 
   onSubmit() {
@@ -179,5 +196,22 @@ export class UserPageComponent implements OnInit {
         this.isError = true;
       }
     );
+  }
+
+  onSeeMore(tournamentRegistration: TournamentRegistration) {
+    this.seeMore = true;
+    const tournamentUuid = tournamentRegistration.tournamentUuid;
+    this.tournamentService.getTournament(tournamentUuid).subscribe(response => {
+      this.tournament = response;
+    })
+  }
+
+  logout() {
+    this.authService.deleteToken();
+    this.router.navigate(['login']);
+  }
+
+  redirectToAdminDashboard() {
+    this.router.navigate(['users']);
   }
 }
