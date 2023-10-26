@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit {
   currentTab = 'users';
   message: string | null = null;
   isError: boolean;
+  submitted = false;
 
   @ViewChild('deleteConfirmation', { static: false }) deleteConfirmation: ElementRef;
   @ViewChild('deleteInfo', { static: false }) deleteInfo: ElementRef;
@@ -150,11 +151,14 @@ export class UsersComponent implements OnInit {
   deleteUser(user: User | null) {
     if (user) {
       this.selectedUser = user;
+      this.submitted = true;
 
       this.userService.deleteUser(this.selectedUser).subscribe(
         () => {
           this.modalService.dismissAll('Delete');
           this.modalService.open(this.deleteInfo, { centered: true, size: 'md' });
+          user.deletedAt = new Date();
+          this.submitted = false;
         })
     }
   }
