@@ -7,7 +7,6 @@ import { Address } from 'src/app/models/Address.model';
 import { AuthService } from 'src/app/services/authService';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { TournamentRegistration } from 'src/app/models/TournamentRegistration.model';
-import { Tournament } from 'src/app/models/Tournament.model';
 
 @Component({
   selector: 'app-user-page',
@@ -27,8 +26,6 @@ export class UserPageComponent implements OnInit {
   existedAddress = false;
   private userUuid: string;
   tournamentRegistrations: TournamentRegistration[];
-  tournamentRegistration: TournamentRegistration;
-  tournament: Tournament;
   seeMore = false;
 
   constructor(
@@ -49,9 +46,17 @@ export class UserPageComponent implements OnInit {
       }
     });
 
-    this.tournamentService.getTounamentRegistrationsOfUser(this.userUuid).subscribe(response => {
-      this.tournamentRegistrations = response;
+    this.tournamentService.getTounamentRegistrationsOfUser(this.userUuid).subscribe(data => {
+      this.tournamentRegistrations = data;
+      this.tournamentRegistrations.forEach(tournamentRegistration => {
+        this.tournamentService.getTournament(tournamentRegistration.tournamentUuid).subscribe(response => {
+          tournamentRegistration.tournamentName = response.name;
+          tournamentRegistration.tournamentStartingDate = response.startingDate;
+          tournamentRegistration.tournamentEndingDate = response.endingDate;
+        })
+      })
     })
+
 
     this.profileForm = this.formBuilder.group({
       email: [{ value: '', disabled: true }],
@@ -190,13 +195,5 @@ export class UserPageComponent implements OnInit {
         this.isError = true;
       }
     );
-  }
-
-  onSeeMore(tournamentRegistration: TournamentRegistration) {
-    this.seeMore = true;
-    const tournamentUuid = tournamentRegistration.tournamentUuid;
-    this.tournamentService.getTournament(tournamentUuid).subscribe(response => {
-      this.tournament = response;
-    })
   }
 }

@@ -116,15 +116,11 @@
         <div class="" *ngFor="let tournamentRegistration of tournamentRegistrations">
           <div class="card mb-3">
             <div class="card-body text-center">
-              <h5 class="card-title">Statut: {{ tournamentRegistration.status }}</h5>
+              <h5 class="card-title">{{ tournamentRegistration.tournamentName }}</h5>
+              <p class="card-text">Date de début le {{ tournamentRegistration.tournamentStartingDate | date}}</p>
+              <p class="card-text">Date de fin le {{ tournamentRegistration.tournamentEndingDate | date}}</p>
+              <p class="card-text">Statut: {{ tournamentRegistration.status }}</p>
               <p class="card-text">Date d'inscription: {{ tournamentRegistration.createdAt | date }}</p>
-              <button *ngIf="seeMore === false" (click)="onSeeMore(tournamentRegistration)" class="btn btn-primary"
-                [disabled]="submitted">Voir</button>
-              <div *ngIf="seeMore === true">
-                <p class="card-text">{{ tournament.name }}</p>
-                <p class="card-text">Date de début le {{ tournament.startingDate | date}}</p>
-                <p class="card-text">Date de fin le {{ tournament.endingDate | date}}</p>
-              </div>
             </div>
           </div>
         </div>
