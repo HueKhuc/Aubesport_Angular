@@ -14,7 +14,7 @@
         [ngClass]="{'active': currentTab === 'tournament'}">Inscription au(x) tournoi(s)</a>
     </li>
     <li *ngIf="isAdmin === true" class="nav-item">
-      <a class="nav-link text-dark" data-toggle="tab" (click)="logout()">Admin Dashboard</a>
+      <a class="nav-link text-dark" data-toggle="tab" (click)="redirectToAdminDashboard()">Admin Dashboard</a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="logout()">Déconnexion</a>

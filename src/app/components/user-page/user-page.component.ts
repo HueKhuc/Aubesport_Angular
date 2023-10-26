@@ -210,4 +210,8 @@ export class UserPageComponent implements OnInit {
     this.authService.deleteToken();
     this.router.navigate(['login']);
   }
+
+  redirectToAdminDashboard() {
+    this.router.navigate(['users']);
+  }
 }
