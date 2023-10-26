@@ -20,10 +20,18 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) { }
-  
+
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/'])
+      this.redirect();
+    }
+  }
+
+  redirect() {
+    if (this.authService.getConnectedUserRoles().includes('ROLE_ADMIN')) {
+      return this.router.navigate(['users'])
+    } else {
+      return this.router.navigate(['/myaccount'])
     }
   }
 
@@ -48,7 +56,7 @@ export class LoginPageComponent implements OnInit {
     ).subscribe(response => {
       this.submitted = false;
       this.authService.saveToken(response.token);
-      this.router.navigate(['/'])
+      this.redirect();
     });
   }
 }
