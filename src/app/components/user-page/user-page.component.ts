@@ -7,6 +7,8 @@ import { Address } from 'src/app/models/Address.model';
 import { AuthService } from 'src/app/services/authService';
 import { TournamentService } from 'src/app/services/tournament.service';
 import { TournamentRegistration } from 'src/app/models/TournamentRegistration.model';
+import { ImageService } from 'src/app/services/image.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-page',
@@ -27,7 +29,8 @@ export class UserPageComponent implements OnInit {
   private userUuid: string;
   tournamentRegistrations: TournamentRegistration[];
   seeMore = false;
-  isAdmin : boolean;
+  isAdmin: boolean;
+  imageData: SafeUrl;
 
   constructor(
     private userService: UserService,
@@ -35,7 +38,9 @@ export class UserPageComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private tournamentService: TournamentService,
-    private router: Router
+    private router: Router,
+    private imageService: ImageService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -43,14 +48,17 @@ export class UserPageComponent implements OnInit {
 
     this.isAdmin = this.authService.getConnectedUserRoles().includes('ROLE_ADMIN');
 
-    console.log(this.isAdmin);
-
     this.route.paramMap.subscribe(params => {
       const userId = params.get('uuid');
       if (userId) {
         this.userUuid = userId;
       }
     });
+
+    this.imageService.getImage(this.userUuid).subscribe((data: Blob) => {
+      const imageUrl = URL.createObjectURL(data);
+      this.imageData = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+    })
 
     this.tournamentService.getTounamentRegistrationsOfUser(this.userUuid).subscribe(data => {
       this.tournamentRegistrations = data;

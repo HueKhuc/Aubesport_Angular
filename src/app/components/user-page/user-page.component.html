@@ -1,6 +1,8 @@
 <div class="d-flex flex-row justify-content-center container">
   <ul class="nav nav-tabs mt-5 flex-column col-md-3 align-self-start">
-    <li><h5 class="text-center mb-3">Mon compte</h5></li>
+    <li>
+      <h5 class="text-center mb-3">Mon compte</h5>
+    </li>
     <li class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('information')"
         [ngClass]="{'active': currentTab === 'information'}">Information</a>
@@ -37,6 +39,11 @@
           <div class="">
             <div class="card">
               <div class="card-body">
+                <div class="row justify-content-center">
+                  <div class="image-container">
+                    <img [src]="imageData" alt="Cropped Image">
+                  </div>
+                </div>
                 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
                   <div class="form-group mb-3">
                     <label for="email">Email</label>
