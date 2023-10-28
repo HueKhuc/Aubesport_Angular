@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from '../../models/User.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/Address.model';
 import { AuthService } from 'src/app/services/authService';
+import { TournamentService } from 'src/app/services/tournament.service';
+import { TournamentRegistration } from 'src/app/models/TournamentRegistration.model';
+import { ImageService } from 'src/app/services/image.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-page',
@@ -13,7 +17,6 @@ import { AuthService } from 'src/app/services/authService';
 })
 
 export class UserPageComponent implements OnInit {
-
   user: User;
   profileForm: FormGroup;
   address: Address;
@@ -21,19 +24,30 @@ export class UserPageComponent implements OnInit {
   submitted = false;
   message: string | null = null;
   isError: boolean;
-  currentForm = 1;
+  currentTab = 'information';
   existedAddress = false;
   private userUuid: string;
+  tournamentRegistrations: TournamentRegistration[];
+  seeMore = false;
+  isAdmin: boolean;
+  imageData: SafeUrl;
+  selectedFile: File | null = null;
 
   constructor(
     private userService: UserService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private tournamentService: TournamentService,
+    private router: Router,
+    private imageService: ImageService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.userUuid = this.authService.getConnectedUserId();
+
+    this.isAdmin = this.authService.getConnectedUserRoles().includes('ROLE_ADMIN');
 
     this.route.paramMap.subscribe(params => {
       const userId = params.get('uuid');
@@ -41,6 +55,23 @@ export class UserPageComponent implements OnInit {
         this.userUuid = userId;
       }
     });
+
+    this.imageService.getImage(this.userUuid).subscribe((data: Blob) => {
+      const imageUrl = URL.createObjectURL(data);
+      this.imageData = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+    })
+
+    this.tournamentService.getTounamentRegistrationsOfUser(this.userUuid).subscribe(data => {
+      this.tournamentRegistrations = data;
+      this.tournamentRegistrations.forEach(tournamentRegistration => {
+        this.tournamentService.getTournament(tournamentRegistration.tournamentUuid).subscribe(response => {
+          tournamentRegistration.tournamentName = response.name;
+          tournamentRegistration.tournamentStartingDate = response.startingDate;
+          tournamentRegistration.tournamentEndingDate = response.endingDate;
+        })
+      })
+    })
+
 
     this.profileForm = this.formBuilder.group({
       email: [{ value: '', disabled: true }],
@@ -85,8 +116,38 @@ export class UserPageComponent implements OnInit {
     });
   }
 
-  showForm(formNumber: number): void {
-    this.currentForm = formNumber;
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile instanceof Blob) {
+      this.imageData = this.sanitizeUrl(URL.createObjectURL(this.selectedFile));
+    }
+  }
+
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  onUpload(): void {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+
+      this.imageService.postImage(this.userUuid, formData).subscribe(
+        () => {
+          this.selectedFile = null;
+          this.isError = false;
+          this.message = 'Image uploaded successfully.';
+        },
+        (error) => {
+          this.message = error.error.detail;
+          this.isError = true;
+        }
+      );
+    }
+  }
+
+  showTab(tabName: string): void {
+    this.currentTab = tabName;
   }
 
   onSubmit() {
@@ -179,5 +240,14 @@ export class UserPageComponent implements OnInit {
         this.isError = true;
       }
     );
+  }
+
+  logout() {
+    this.authService.deleteToken();
+    this.router.navigate(['login']);
+  }
+
+  redirectToAdminDashboard() {
+    this.router.navigate(['users']);
   }
 }

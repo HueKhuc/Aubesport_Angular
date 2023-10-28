@@ -39,6 +39,10 @@ export class AuthService {
         return this.getDecodedToken().id;
     }
 
+    public getConnectedUserRoles(): Array<string> {
+        return this.getDecodedToken().roles;
+    }
+
     private getDecodedToken(): Token {
         const token = this.getToken();
 
