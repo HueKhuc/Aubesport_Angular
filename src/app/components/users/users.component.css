@@ -9,3 +9,7 @@
 li a {
     cursor: pointer !important;
 }
+
+#btn-delete {
+    color: brown;
+}

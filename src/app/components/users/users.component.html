@@ -57,9 +57,13 @@
                   <td class="align-middle">{{ user.lastName }}</td>
                   <td class="align-middle">{{ user.createdAt | date }}</td>
                   <td>
-                    <button class="btn btn-warning mx-1" (click)="onModify(user)">Modifier</button>
-                    <button *ngIf="user.deletedAt === null" class="btn btn-danger mx-1"
-                      (click)="confirmDeleteUser(user)">Supprimer</button>
+                    <button class="btn btn-link" (click)="onModify(user)" ngbTooltip="Modifier">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button *ngIf="user.deletedAt === null" class="btn btn-link" id="btn-delete"
+                      (click)="confirmDeleteUser(user)" ngbTooltip="Supprimer">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
                   </td>
                 </tr>
               </tbody>
