@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/User.model';
-import { Observable } from 'rxjs';
-import { UserList } from '../models/UserList.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Address } from '../models/Address.model';
 import { AuthService } from './authService';
 
 @Injectable({
@@ -22,6 +18,10 @@ export class ImageService {
 
   getImage(userUuid: string) {
     return this.http.get(`${this.api}/${userUuid}/image`, { headers: this.getAutorizationHeaders(), responseType: 'blob' });
+  }
+
+  postImage(userUuid: string, form: FormData) {
+    return this.http.post(`${this.api}/${userUuid}/image`, form, { headers: this.getAutorizationHeaders() });
   }
 
   private getAutorizationHeaders(): HttpHeaders {

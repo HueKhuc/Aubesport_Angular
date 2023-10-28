@@ -31,6 +31,7 @@ export class UserPageComponent implements OnInit {
   seeMore = false;
   isAdmin: boolean;
   imageData: SafeUrl;
+  selectedFile: File | null = null;
 
   constructor(
     private userService: UserService,
@@ -113,6 +114,36 @@ export class UserPageComponent implements OnInit {
         postalCode: this.address.postalCode
       });
     });
+  }
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile instanceof Blob) {
+      this.imageData = this.sanitizeUrl(URL.createObjectURL(this.selectedFile));
+    }
+  }
+
+  sanitizeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  onUpload(): void {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+
+      this.imageService.postImage(this.userUuid, formData).subscribe(
+        () => {
+          this.selectedFile = null;
+          this.isError = false;
+          this.message = 'Image uploaded successfully.';
+        },
+        (error) => {
+          this.message = error.error.detail;
+          this.isError = true;
+        }
+      );
+    }
   }
 
   showTab(tabName: string): void {
