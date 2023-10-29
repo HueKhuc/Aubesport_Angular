@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
 header {
   background-image: url("src\assets\images\site_aubesport_banniere.png");
   background-position: center;
@@ -14,15 +15,7 @@ header {
   background: rgb(1, 1, 27);
   position: relative;
 }
-#cashprize .image ::after{
-  content: "";
-  background-color: rgba(105, 9, 134, 0.799);
-  width: 90%;
-  height: 2px;
-  display: block;
-  margin: auto;
-  margin-top: 10px;
-}
+
 #cashprize h3{
   /* margin-right: 50px; */
   font-size: 2.2rem;
@@ -58,8 +51,22 @@ background: radial-gradient(circle, rgba(106, 19, 97, 0.9) 0%, rgba(1,1,27,0.571
 .partenaires{
 width: 200px;
 }
+#logoBS_school{
+  width: 150px;
+}
 #project{
   background: rgb(1, 1, 27);
+  padding-top: 50px;
+}
+#project::before{
+  content: "";
+  background-color: rgba(105, 9, 134, 0.799);
+  width: 80%;
+  height: 2px;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 50px;
 }
 
 #project h2{
@@ -78,7 +85,19 @@ width: 200px;
 }
 #projet-title{
   rotate: 8deg;
+ position: relative;
+ left: 250px;
 }
+#projet-title::before{
+  content: "suivez";
+  font-family: 'Londrina Outline', sans-serif;
+  font-size:larger;
+  color: antiquewhite;
+  position: absolute;
+  bottom: 45px;
+  left: 50px;
+}
+
 
 #bubble {
   background-color: antiquewhite;
@@ -96,53 +115,29 @@ width: 200px;
 #bubble::before {
   content: "";
   position: absolute;
-  top: 163px;
-  left: 40px;
-  width: 219px;
-  height: 130px;
+  top: -94px;
+  left: 176px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-  background-color:antiquewhite;
-  z-index: 9999999;
+  background-color: antiquewhite;
+  
 }
 
 #bubble::after {
   content: "";
   position: absolute;
-  top: -49px;
-  left: 138px;
-  width: 136px;
-  height: 151px;
+  top: -62px;
+  left: 127px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  background-color:antiquewhite;
-  z-index: 9999999;
+  background-color: antiquewhite;
 }
 #project-pt2 img {
-  max-width: 300px;
+  max-width: 350px;
 }
-#blog{
-  position: relative;
-  background: antiquewhite;
-  border-radius: 50%;
-  height: 99px;
-  width: 132px;
-  padding: 20px;
-  z-index: 99999;
-  bottom: 156px;
-  left: 488px;
-}
-#blog::after{
-  content: "";
-  position: absolute;
-  background: antiquewhite;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 50%;
-  width: 136px;
-  height: 151px;
-  top: 48px;
-  left: 40px;
 
-}
 
 /* *********************
 ** Responsive**
