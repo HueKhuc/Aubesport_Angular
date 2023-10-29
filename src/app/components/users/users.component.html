@@ -9,7 +9,11 @@
     </li>
     <li class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('users')"
-        [ngClass]="{'active': currentTab === 'users'}">Users</a>
+        [ngClass]="{'active': currentTab === 'users'}">Utilisateurs</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" data-toggle="tab" (click)="redirectToInscription()">Création nouvel
+        utilisateur</a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('tournaments')"
@@ -28,7 +32,7 @@
   </ul>
   <div class="tab-content col-md-8 m-5">
     <div *ngIf="currentTab === 'users'" id="tab1">
-      <div class="container">
+      <div *ngIf="users" class="container">
         <div class="col-md-1 mb-1 offset-11">
           <select class="form-select" (change)="onElementsPerPageChange($event)">
             <option value="10" [selected]="elementsPerPage === 10">10</option>
@@ -110,9 +114,13 @@
         </div>
       </ng-template>
     </div>
+
     <div *ngIf="currentTab === 'tournaments'" id="tab2">
-      <div class="row justify-content-center">
-        <div class="" *ngFor="let tournament of tournaments">
+      <div *ngIf="tournaments.length === 0" class="row mt-3 text-center">
+        <p>Il y a pas de tournoi</p>
+      </div>
+      <div *ngIf="tournaments" class="row justify-content-center">
+        <div *ngFor="let tournament of tournaments">
           <div class="card mb-3">
             <div class="card-body text-center">
               <h5 class="card-title">{{ tournament.name }}</h5>
@@ -123,40 +131,51 @@
         </div>
       </div>
     </div>
+    
     <div *ngIf="currentTab === 'tournamentRegistrations'" id="tab3">
-      <div class="row justify-content-center">
-        <div *ngIf="message"
-          [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
-          {{ message }}
-        </div>
+      <div *ngIf="tournamentRegistrations.length === 0" class="row mt-3 text-center">
+        <p>Il y a pas d'inscription</p>
       </div>
-      <div class="row justify-content-center">
-        <div class="col">
-          <table class="table table-bordered table-striped text-center">
-            <thead>
-              <tr>
-                <th class="align-middle">User</th>
-                <th class="align-middle">Tournoi</th>
-                <th class="align-middle">Statut</th>
-                <th class="align-middle">Date d'inscription</th>
-                <th class="align-middle">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let tournamentRegistration of tournamentRegistrations">
-                <td class="align-middle">{{ tournamentRegistration.userEmail}}</td>
-                <td class="align-middle">{{ tournamentRegistration.tournamentName }}</td>
-                <td class="align-middle">{{ tournamentRegistration.status }}</td>
-                <td class="align-middle">{{ tournamentRegistration.createdAt | date }}</td>
-                <td>
-                  <button *ngIf="tournamentRegistration.status === 'pending'" class="btn btn-success mx-1"
-                    (click)="accept(tournamentRegistration)">Accepter</button>
-                  <button *ngIf="tournamentRegistration.status === 'pending'" class="btn btn-danger mx-1"
-                    (click)="refuse(tournamentRegistration)">Refuser</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <button class="btn btn-outline-dark my-2" (click)="redirectToTournamentRegistration()">Création d'une nouvelle inscription</button>
+      <div *ngIf="tournamentRegistrations.length !== 0">
+        <div class="row justify-content-center">
+          <div *ngIf="message"
+            [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
+            {{ message }}
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col">
+            <table class="table table-bordered table-striped text-center">
+              <thead>
+                <tr>
+                  <th class="align-middle">User</th>
+                  <th class="align-middle">Tournoi</th>
+                  <th class="align-middle">Statut</th>
+                  <th class="align-middle">Date d'inscription</th>
+                  <th class="align-middle">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tournamentRegistration of tournamentRegistrations">
+                  <td class="align-middle">{{ tournamentRegistration.userEmail}}</td>
+                  <td class="align-middle">{{ tournamentRegistration.tournamentName }}</td>
+                  <td class="align-middle">{{ tournamentRegistration.status }}</td>
+                  <td class="align-middle">{{ tournamentRegistration.createdAt | date }}</td>
+                  <td>
+                    <button *ngIf="tournamentRegistration.status === 'pending'" class="btn btn-link"
+                      (click)="accept(tournamentRegistration)" ngbTooltip="Accepter">
+                      <i class="fas fa-check"></i>
+                    </button>
+                    <button *ngIf="tournamentRegistration.status === 'pending'" class="btn btn-link"
+                      (click)="refuse(tournamentRegistration)" ngbTooltip="Refuser">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './authService';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { AuthService } from './authService';
 
 export class ImageService {
   private headers: HttpHeaders | null = null;
-  private api = 'http://localhost:8000/api/users';
+  private api = `${environment.apiUrl}/api/users`;
 
   constructor(
     private http: HttpClient,

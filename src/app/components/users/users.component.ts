@@ -78,6 +78,11 @@ export class UsersComponent implements OnInit {
   redirectToHomepage() {
     this.router.navigate(['/'])
   }
+
+  redirectToInscription(){
+    this.router.navigate(['inscription'])
+  }
+
   accept(tournamentRegistration: TournamentRegistration) {
     this.message = null;
 
@@ -180,6 +185,10 @@ export class UsersComponent implements OnInit {
 
   redirectToMonCompte() {
     this.router.navigate(['myaccount']);
+  }
+
+  redirectToTournamentRegistration() {
+    this.router.navigate(['tournament']);
   }
 
   logout() {

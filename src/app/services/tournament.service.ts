@@ -5,6 +5,7 @@ import { Tournament } from '../models/Tournament.model';
 import { AuthService } from './authService';
 import { TournamentRegistration } from '../models/TournamentRegistration.model';
 import { TournamentRegistrationList } from '../models/TournamentRegistrationList.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class TournamentService {
     private http: HttpClient,
     private authService: AuthService
   ) {
-    this.api = 'http://localhost:8000/api';
+    this.api = `${environment.apiUrl}/api`;
     this.headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`,
     });

@@ -25,7 +25,7 @@ export class InscriptionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedIn() === false) {
+    if (this.authService.isLoggedIn() === false || (this.authService.getConnectedUserRoles().includes('ROLE_ADMIN'))) {
       this.inscriptionForm = this.formBuilder.group({
         email: [[], [Validators.required, Validators.email]],
         password: [[], Validators.required],

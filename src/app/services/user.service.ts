@@ -5,6 +5,7 @@ import { UserList } from '../models/UserList.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Address } from '../models/Address.model';
 import { AuthService } from './authService';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { AuthService } from './authService';
 
 export class UserService {
   private headers: HttpHeaders | null = null;
-  private api = 'http://localhost:8000/api/users';
+  private api = `${environment.apiUrl}/api/users`;
 
   constructor(
     private http: HttpClient,

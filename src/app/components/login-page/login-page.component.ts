@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginResponse } from 'src/app/models/LoginResponse.model';
 import { AuthService } from 'src/app/services/authService';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login-page',
@@ -12,8 +13,10 @@ import { AuthService } from 'src/app/services/authService';
 })
 
 export class LoginPageComponent implements OnInit {
-  private apiUri = 'http://localhost:8000/api/login_check';
+  private apiUri = `${environment.apiUrl}/api/login_check`;
   submitted = false;
+  message: string | null = null;
+  isError: boolean;
 
   constructor(
     private http: HttpClient,
@@ -46,6 +49,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.submitted = true;
+    this.message = null;
 
     this.http.post<LoginResponse>(
       this.apiUri,
@@ -56,7 +60,13 @@ export class LoginPageComponent implements OnInit {
     ).subscribe(response => {
       this.submitted = false;
       this.authService.saveToken(response.token);
+      this.isError = false;
       this.redirect();
+    },
+    (error: { error: { message: string | null; }; }) => {
+      this.submitted = false;
+      this.message = error.error.message;
+      this.isError = true;
     });
   }
 }
