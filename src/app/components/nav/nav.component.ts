@@ -17,7 +17,7 @@ export class NavComponent {
     this.detectScreenWidth();
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.isHomePage = event.url === '/home';
+        this.isHomePage = event.url === '/';
       }
     });
   }
