@@ -12,7 +12,7 @@
           <a class="nav-link text-white active" aria-current="page" [routerLink]="['/tournaments']">INSCRIPTION</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">BILLETERIE</a>
+          <a class="nav-link text-white" href="https://www.helloasso.com/associations/aubercorp/evenements/aubesport-1?_ga=2.128525644.1789605056.1694463122-262860388.1676530808&_gl=1%2atsxrfk%2a_ga%2aMjYyODYwMzg4LjE2NzY1MzA4MDg.%2a_ga_TKC826G3G2%2aMTY5NDQ5ODY5My40Ny4xLjE2OTQ0OTg4NTUuMzAuMC4w">BILLETERIE</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="#">SHOP</a>
@@ -36,12 +36,15 @@
             aria-expanded="false">
             <i class="fa fa-user text-white"></i>
           </a>
-          <ul *ngIf="isLoggedIn" class="dropdown-menu dropdown-menu-lg-end" [ngClass]="{'dropdown-menu-transparent': isHomePage, 'dropdown-menu-colored': !isHomePage}">
-            <li *ngIf="isAdmin"><a class="dropdown-item" [routerLink]="['/users']">Liste d'utilisateurs</a></li>
-            <li *ngIf="isAdmin"><a class="dropdown-item" [routerLink]="['/tournament-registrations']">Liste d'inscription au(x)
+          <ul *ngIf="isLoggedIn" class="dropdown-menu dropdown-menu-lg-end"
+            [ngClass]="{'dropdown-menu-transparent': isHomePage, 'dropdown-menu-colored': !isHomePage}">
+            <li *ngIf="isAdmin"><a class="dropdown-item text-white" [routerLink]="['/users']">Liste d'utilisateurs</a>
+            </li>
+            <li *ngIf="isAdmin"><a class="dropdown-item text-white" [routerLink]="['/tournament-registrations']">Liste
+                d'inscription au(x)
                 tournoi(s)</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/myaccount']">Mon compte</a></li>
-            <li><a class="dropdown-item" (click)="logout()">Déconnexion</a></li>
+            <li><a class="dropdown-item text-white" [routerLink]="['/myaccount']">Mon compte</a></li>
+            <li><a class="dropdown-item text-white" (click)="logout()">Déconnexion</a></li>
           </ul>
         </li>
         <li *ngIf="isLoggedIn === false" class="nav-item dropdown">
@@ -49,9 +52,10 @@
             aria-expanded="false">
             <i class="fa fa-user text-white"></i>
           </a>
-          <ul [hidden]="isLoggedIn" class="dropdown-menu dropdown-menu-lg-end" [ngClass]="{'dropdown-menu-transparent': isHomePage, 'dropdown-menu-colored': !isHomePage}">
-            <li><a class="dropdown-item" [routerLink]="['/login']">Se connecter</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/inscription']">Inscription</a></li>
+          <ul [hidden]="isLoggedIn" class="dropdown-menu dropdown-menu-lg-end"
+            [ngClass]="{'dropdown-menu-transparent': isHomePage, 'dropdown-menu-colored': !isHomePage}">
+            <li><a class="dropdown-item text-white" [routerLink]="['/login']">Se connecter</a></li>
+            <li><a class="dropdown-item text-white" [routerLink]="['/inscription']">Inscription</a></li>
           </ul>
         </li>
       </ul>

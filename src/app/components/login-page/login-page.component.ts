@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login-page.component.css']
 })
 
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
   private apiUri = `${environment.apiUrl}/api/login_check`;
   submitted = false;
   message: string | null = null;
@@ -23,20 +23,6 @@ export class LoginPageComponent implements OnInit {
     private router: Router,
     private authService: AuthService
   ) { }
-
-  ngOnInit(): void {
-    if (this.authService.isLoggedIn()) {
-      this.redirect();
-    }
-  }
-
-  redirect() {
-    if (this.authService.getConnectedUserRoles().includes('ROLE_ADMIN')) {
-      return this.router.navigate(['users'])
-    } else {
-      return this.router.navigate(['/myaccount'])
-    }
-  }
 
   loginForm = new FormGroup({
     email: new FormControl(''),
@@ -61,7 +47,7 @@ export class LoginPageComponent implements OnInit {
       this.submitted = false;
       this.authService.saveToken(response.token);
       this.isError = false;
-      this.redirect();
+      this.router.navigate(['/']);
     },
     (error: { error: { message: string | null; }; }) => {
       this.submitted = false;
