@@ -6,7 +6,7 @@
 <div *ngIf="isAccessDenied === false" class="justify-content-center my-3 container">
   <div *ngIf="users">
     <div class="d-flex flex-row my-2 justify-content-end">
-      <button class="btn btn-outline-dark mx-2" [routerLink]="['inscription']" ngbTooltip="Créer nouvel utilisateur"><i class="fas fa-plus"></i></button>
+      <button class="btn btn-outline-dark mx-2" [routerLink]="['/inscription']" ngbTooltip="Créer nouvel utilisateur"><i class="fas fa-plus"></i></button>
       <div class="col-1">
         <select class="form-select" (change)="onElementsPerPageChange($event)">
           <option value="10" [selected]="elementsPerPage === 10">10</option>

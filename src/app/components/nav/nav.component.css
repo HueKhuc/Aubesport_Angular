@@ -1,36 +1,45 @@
 ul {
   list-style-type: none;
 }
+
 a {
   text-decoration: none;
 }
+
 #contact_logo {
   height: 25px;
   width: auto;
 }
+
 #logo {
   width: 60px;
 
 }
+
 .bg-transparent {
   background-color: transparent !important;
-  transition: background-color 0.3s ease !important; 
+  transition: background-color 0.3s ease !important;
 }
 
 .bg-colored {
-  background: linear-gradient(157deg, rgba(1,15,105,0.9275910193178833) 23%, rgba(154,0,120,0.9303921397660627) 77%) !important; 
-  transition: background-color 0.3s ease; 
+  background: linear-gradient(157deg, rgba(1, 15, 105, 0.9275910193178833) 23%, rgba(154, 0, 120, 0.9303921397660627) 77%) !important;
+  transition: background-color 0.3s ease;
 }
+
 /* Styles pour l'icône du menu burger */
 .menu-button {
   cursor: pointer;
-  font-size: 24px; /* Taille de l'icône */
-  color: #ffffff; /* Couleur de l'icône */
-  margin-left: 80%; /* Espacement entre le bouton et le logo */
+  font-size: 24px;
+  /* Taille de l'icône */
+  color: #ffffff;
+  /* Couleur de l'icône */
+  margin-left: 80%;
+  /* Espacement entre le bouton et le logo */
 }
 
 .dropdown-toggle::after {
-  content: none; /* Removes the background image */
+  content: none;
+  /* Removes the background image */
 }
 
 .dropdown-menu-transparent {
@@ -38,14 +47,19 @@ a {
 }
 
 .dropdown-menu-colored {
-  background: linear-gradient(157deg, rgba(154,0,120,0.9) 23%, rgba(1,15,105,0.9) 77%);
+  background: linear-gradient(157deg, rgba(154, 0, 120, 0.9) 23%, rgba(1, 15, 105, 0.9) 77%);
 }
 
 .dropdown {
   z-index: 1000;
 }
 
-.dropdown-item:focus, .dropdown-item:hover {
-  /* color:; */
+.dropdown-item:focus,
+.dropdown-item:hover {
   background-color: rgba(90, 63, 90, 0.4);
-  }
+  font-size: 110%;
+}
+
+.navbar-nav .nav-item:hover {
+  font-size: 110%;
+}
