@@ -13,13 +13,12 @@ a {
 
 }
 .bg-transparent {
-  background-color: transparent;
-  transition: background-color 0.3s ease; 
+  background-color: transparent !important;
+  transition: background-color 0.3s ease !important; 
 }
 
-
 .bg-colored {
-  background: linear-gradient(157deg, rgba(1,15,105,0.9275910193178833) 23%, rgba(154,0,120,0.9303921397660627) 77%); 
+  background: linear-gradient(157deg, rgba(1,15,105,0.9275910193178833) 23%, rgba(154,0,120,0.9303921397660627) 77%) !important; 
   transition: background-color 0.3s ease; 
 }
 /* Styles pour l'icône du menu burger */
@@ -30,24 +29,18 @@ a {
   margin-left: 80%; /* Espacement entre le bouton et le logo */
 }
 
-.nav-item{
-  margin-left: 70%;
-}
-#navburger{
-  display: none;
+.dropdown-toggle::after {
+  content: none; /* Removes the background image */
 }
 
-/* ************************
-**Responsive **
-**********************************/
-@media (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
-  #navextand{
-    display: none;
-  }
-  #navburger{
-    display: block;
-  }
+.dropdown-menu-transparent {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.dropdown-menu-colored {
+  background: linear-gradient(157deg, rgba(1,15,105,0.3) 23%, rgba(154,0,120,0.3) 77%);
+}
+
+.dropdown {
+  z-index: 1000;
 }

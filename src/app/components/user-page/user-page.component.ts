@@ -241,13 +241,4 @@ export class UserPageComponent implements OnInit {
       }
     );
   }
-
-  logout() {
-    this.authService.deleteToken();
-    this.router.navigate(['login']);
-  }
-
-  redirectToAdminDashboard() {
-    this.router.navigate(['users']);
-  }
 }

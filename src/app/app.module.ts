@@ -10,10 +10,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CommonModule } from '@angular/common';
 
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
+import { TournamentRegistrationsComponent } from './components/tournament-registrations/tournament-registrations.component';
 
 
 @NgModule({
@@ -27,6 +30,7 @@ import { HomeComponent } from './components/home/home.component';
     HomeComponent,
     NavComponent,
     HomeComponent,
+    TournamentRegistrationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,8 @@ import { HomeComponent } from './components/home/home.component';
     ReactiveFormsModule,
     NgbModule,
     FormsModule,
+    ButtonsModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -7,15 +7,16 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
 import { AuthGuard } from './services/authGuard';
 import { TournamentComponent } from './components/tournament/tournament.component';
 import { HomeComponent } from './components/home/home.component';
-
+import { TournamentRegistrationsComponent } from './components/tournament-registrations/tournament-registrations.component';
 
 const routes: Routes = [
   { path: "users", component: UsersComponent, canActivate: [AuthGuard] },
+  { path: "tournament-registrations", component: TournamentRegistrationsComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginPageComponent },
   { path: "myaccount", component: UserPageComponent, canActivate: [AuthGuard] },
   { path: "user/:uuid", component: UserPageComponent, canActivate: [AuthGuard] },
   { path: "inscription", component: InscriptionComponent },
-  { path: "tournament", component: TournamentComponent, canActivate: [AuthGuard] },
+  { path: "tournaments", component: TournamentComponent, canActivate: [AuthGuard] },
   { path: '', component: HomeComponent },
 ];
 

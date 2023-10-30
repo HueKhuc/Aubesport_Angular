@@ -16,12 +16,6 @@
       <a class="nav-link text-dark" data-toggle="tab" (click)="showTab('tournament')"
         [ngClass]="{'active': currentTab === 'tournament'}">Inscription au(x) tournoi(s)</a>
     </li>
-    <li *ngIf="isAdmin === true" class="nav-item">
-      <a class="nav-link text-dark" data-toggle="tab" (click)="redirectToAdminDashboard()">Admin Dashboard</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-dark" data-toggle="tab" (click)="logout()">Déconnexion</a>
-    </li>
   </ul>
   <div class="tab-content col-md-8 m-5">
     <div *ngIf="currentTab === 'information'" id="tab1">
@@ -45,7 +39,7 @@
               <input type="file" (change)="onFileSelected($event)" accept="image/*" id="hiddenFileInput"
                 style="display: none;" />
               <label for="hiddenFileInput" class="btn btn-outline-dark mx-3">Sélectionner une image</label>
-              <button class="btn btn-primary" (click)="onUpload()" [hidden]="!selectedFile">Téléverser</button>
+              <button class="btn btn-primary" (click)="onUpload()" [hidden]="!selectedFile">Upload</button>
             </div>
 
             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">

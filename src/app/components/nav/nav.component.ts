@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/authService';
 
 
 @Component({
@@ -7,12 +8,19 @@ import { NavigationEnd, Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
   isMenuOpen = false;
+  isUserMenuOpen = false;
   isHomePage: boolean;
   isMobile: boolean;
+  isAdmin = false;
+  isLoggedIn = false;
 
-  constructor(private router: Router) {
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+  ) {
     this.isHomePage = true;
     this.detectScreenWidth();
     router.events.subscribe((event) => {
@@ -20,6 +28,14 @@ export class NavComponent {
         this.isHomePage = event.url === '/';
       }
     });
+  }
+
+  ngOnInit() {
+    if (this.authService.getConnectedUserRoles().includes("ROLE_ADMIN")) {
+      this.isAdmin = true;
+    }
+
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   toggleMenu() {
@@ -32,6 +48,11 @@ export class NavComponent {
   }
 
   detectScreenWidth() {
-    this.isMobile = window.innerWidth < 992; 
+    this.isMobile = window.innerWidth < 992;
+  }
+
+  logout() {
+    this.authService.deleteToken();
+    this.router.navigate(['login']);
   }
 }

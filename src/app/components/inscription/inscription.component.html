@@ -2,14 +2,16 @@
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div *ngIf="message"
+            <div *ngIf="message" class="text-center"
                 [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
-                {{ message }}
+                <p>{{ message }}</p>
+                <button *ngIf="isError === false"  class="btn btn-outline-success mx-3"
+                                [routerLink]="['/']">Retourner à la page d'accueil</button>
             </div>
         </div>
     </div>
 </div>
-<div class="container mb-3">
+<div *ngIf="isError === true" class="container mb-3">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">

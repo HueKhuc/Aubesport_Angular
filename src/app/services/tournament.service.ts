@@ -41,8 +41,8 @@ export class TournamentService {
     return this.http.get<TournamentRegistration[]>(`${this.api}/users/${uuid}/tournament-registrations`, { headers: this.headers });
   }
 
-  getAllTournamentRegistrations(): Observable<TournamentRegistrationList> {
-    return this.http.get<TournamentRegistrationList>(`${this.api}/tournament-registrations`, { headers: this.headers });
+  getAllTournamentRegistrations(currentPage: number, elementsPerPage: number): Observable<TournamentRegistrationList> {
+    return this.http.get<TournamentRegistrationList>(`${this.api}/tournament-registrations?currentPage=${currentPage}&elementsPerPage=${elementsPerPage}`, { headers: this.headers });
   }
 
   acceptTournamentRegistration(uuid: string): Observable<TournamentRegistration> {
