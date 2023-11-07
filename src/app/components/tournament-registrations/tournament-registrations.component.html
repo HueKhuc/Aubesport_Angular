@@ -1,0 +1,70 @@
+<app-nav></app-nav>
+<div *ngIf="isAccessDenied === true" class="alert alert-danger m-5 text-center ">
+    <p> Accès non autorisé </p>
+    <button class="btn btn-primary" [routerLink]="['/']">Aller à la page d'accueil</button>
+</div>
+
+<div *ngIf="isAccessDenied === false" class=" justify-content-center container">
+    <div *ngIf="tournamentRegistrations?.length === 0" class="row mt-3 text-center">
+        <p>Il y a pas d'inscription</p>
+    </div>
+
+    <div *ngIf="tournamentRegistrations?.length !== 0" class="my-3">
+        <div class="row justify-content-center">
+            <div *ngIf="message"
+                [ngClass]="{ 'alert': true, 'alert-success': isError === false, 'alert-danger': isError === true}">
+                {{ message }}
+            </div>
+        </div>
+        <div class="d-flex flex-row mb-2 justify-content-end">
+            <button class="btn btn-outline-dark mx-2" [routerLink]="['/tournaments']" ngbTooltip="Création d'une nouvelle
+            inscription"><i class="fas fa-plus"></i></button>
+            <div class="col-1">
+                <select class="form-select" (change)="onElementsPerPageChange($event)">
+                    <option value="10" [selected]="elementsPerPage === 10">10</option>
+                    <option value="20" [selected]="elementsPerPage === 20">20</option>
+                    <option value="50" [selected]="elementsPerPage === 50">50</option>
+                </select>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <table class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th class="align-middle">User</th>
+                            <th class="align-middle">Tournoi</th>
+                            <th class="align-middle">Statut</th>
+                            <th class="align-middle">Date d'inscription</th>
+                            <th class="align-middle">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tournamentRegistration of tournamentRegistrations">
+                            <td class="align-middle">{{ tournamentRegistration.userEmail}}</td>
+                            <td class="align-middle">{{ tournamentRegistration.tournamentName }}</td>
+                            <td class="align-middle">{{ tournamentRegistration.status }}</td>
+                            <td class="align-middle">{{ tournamentRegistration.createdAt | date }}</td>
+                            <td>
+                                <button *ngIf="tournamentRegistration.status === 'pending'" class="btn btn-link"
+                                    (click)="accept(tournamentRegistration)" ngbTooltip="Accepter">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button *ngIf="tournamentRegistration.status === 'pending'" class="btn btn-link"
+                                    (click)="refuse(tournamentRegistration)" ngbTooltip="Refuser">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex flex-row justify-content-between">
+                <button class="btn btn-outline-dark" (click)="onPreviousPage()"
+                    [disabled]="currentPage === 1">Précédent</button>
+                <button class="btn btn-outline-dark" (click)="onNextPage()" [disabled]="currentPage === totalOfPages"
+                    [disabled]="totalOfPages === 1">Suivant</button>
+            </div>
+        </div>
+    </div>
+</div>

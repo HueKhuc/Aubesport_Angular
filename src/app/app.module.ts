@@ -9,6 +9,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
+import { TournamentComponent } from './components/tournament/tournament.component';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CommonModule } from '@angular/common';
+
+import { NavComponent } from './components/nav/nav.component';
+import { HomeComponent } from './components/home/home.component';
+import { TournamentRegistrationsComponent } from './components/tournament-registrations/tournament-registrations.component';
 
 
 @NgModule({
@@ -18,6 +26,11 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
     LoginPageComponent,
     UserPageComponent,
     InscriptionComponent,
+    TournamentComponent,
+    HomeComponent,
+    NavComponent,
+    HomeComponent,
+    TournamentRegistrationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,9 +39,11 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
     ReactiveFormsModule,
     NgbModule,
     FormsModule,
+    ButtonsModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 
-export class AppModule { }
+export class AppModule {}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/User.model';
+import { AuthService } from 'src/app/services/authService';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,22 +19,28 @@ export class InscriptionComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-
-    this.inscriptionForm = this.formBuilder.group({
-      email: [[], [Validators.required, Validators.email]],
-      password: [[], Validators.required],
-      pseudo: [],
-      bio: [],
-      firstName: [],
-      lastName: [],
-      gender: [],
-      birthday: [],
-    });
+    if (this.authService.isLoggedIn() === false || (this.authService.getConnectedUserRoles().includes('ROLE_ADMIN'))) {
+      this.inscriptionForm = this.formBuilder.group({
+        email: [[], [Validators.required, Validators.email]],
+        password: [[], Validators.required],
+        pseudo: [],
+        bio: [],
+        firstName: [],
+        lastName: [],
+        gender: [],
+        birthday: [],
+      });
+    } else {
+      this.router.navigate(['/']);
+    }
   }
+
   onSubmit() {
     if (this.submitted) {
       return;

@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+header {
+  background-image: url("src\assets\images\site_aubesport_banniere.png");
+  background-position: relative;
+  background-size: cover;
+  height: 55vh;
+  position: relative;
+}
+#header_title{
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+#cashprize{
+  background: rgb(1, 1, 27);
+  position: relative;
+}
+
+#cashprize h3{
+  /* margin-right: 50px; */
+  font-size: 2.2rem;
+}
+#cashprize_img{
+
+  max-width: 300px;
+  rotate: 35deg;
+  margin-left: 75%;
+  margin-top: -60px;
+  margin-bottom: 20px;
+}
+#resgistration-btn{
+  font-size: larger;
+  padding-top: 10px;
+  text-decoration: none;
+  display: inline-block;
+  width: 80vw;
+  height: 50px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  background: rgb(0,154,139);
+background: radial-gradient(circle, rgba(106, 19, 97, 0.9) 0%, rgba(1,1,27,0.5718487223991159) 100%); 
+}
+
+#inscris a{
+  text-decoration: none;
+  font-size: 1.7rem;
+  padding-bottom: 10px;
+  /* margin-left: 75px; */
+}
+
+.partenaires{
+width: 200px;
+}
+#logoBS_school{
+  width: 150px;
+}
+#project{
+  background: rgb(1, 1, 27);
+  padding-top: 50px;
+}
+#project::before{
+  content: "";
+  background-color: rgba(105, 9, 134, 0.799);
+  width: 80%;
+  height: 2px;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+#project h2{
+  color: rgb(8, 35, 25);
+  font-size: 2.5rem;
+  font-weight: 800;
+  background-color: antiquewhite;
+  width: fit-content;
+  padding: 6px 20px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  margin-top: 30px;
+}
+#aubesport-title{
+  rotate: -8deg;
+}
+#projet-title{
+  rotate: 8deg;
+ position: relative;
+ left: 250px;
+}
+#projet-title::before{
+  content: "suivez";
+  font-family: 'Londrina Outline', sans-serif;
+  font-size:larger;
+  color: antiquewhite;
+  position: absolute;
+  bottom: 45px;
+  left: 50px;
+}
+
+
+#bubble {
+  background-color: antiquewhite;
+  color: #000000;
+  padding: 80px 40px;
+  height: 225px;
+  width: 225px;
+  border-radius: 50%;
+  /* display: inline-block; */
+  position: relative;
+  /* overflow: hidden;
+  z-index: 9999999; */
+}
+
+#bubble::before {
+  content: "";
+  position: absolute;
+  top: -94px;
+  left: 176px;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background-color: antiquewhite;
+  
+}
+
+#bubble::after {
+  content: "";
+  position: absolute;
+  top: -62px;
+  left: 127px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: antiquewhite;
+}
+#project-pt2 img {
+  max-width: 350px;
+}
+
+
+/* *********************
+** Responsive**
+***************************** */
+@media (max-width: 768px) {
+
+#cashprize_img{
+  display: none;
+}
+
+}
